@@ -1,0 +1,88 @@
+.productCard{
+    height: 400px;
+    width: 200px;
+    border: 1px solid white;
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5)
+}
+
+.productCard img{
+    width: 150px;
+    height: 250px;
+    margin-left: 1rem;
+    margin-right: 0.5rem;
+}
+
+.productImage .btn-wishlist{
+    font-size: large;
+    margin-top: 1rem;
+    color: rgb(181, 176, 176);
+    height: 25px;
+    padding: 2px;
+    border: none;
+    background-color: white;
+}
+
+.productImage .btn-wishlist:hover{
+    color: red;
+}
+
+.productImage{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.productCard .productDescription{
+    display: flex;
+    justify-content: space-evenly;
+    line-height: 2px;
+    text-align: left;
+}
+
+.productCard .productDescription .productName {
+    font-weight: bold;
+}
+
+.productCard .productDescription .productPrice {
+    font-weight: bold;
+}
+
+.productCard .productDescription .productAuthor {
+    font-weight: light;
+    color: rgb(167, 162, 162);
+}
+
+.productCard .productDescription .originalPrice {
+    font-weight: light;
+    color: rgb(167, 162, 162);
+    text-decoration: line-through;
+}
+
+.productCard .productRating{
+    /* border: 1px solid; */
+    background-color: #20aa20;
+    color: white;
+    padding: 2px;
+    margin: 20px;
+}
+
+.productCard .btn-addToCart{
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bb5;
+    color: white;
+    max-width: 100%;
+}
+
+@media (min-width: 768px){
+    .productCard{
+        width: 280px;
+    }
+}
+
+

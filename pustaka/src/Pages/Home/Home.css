@@ -1,0 +1,89 @@
+.home {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .header{
+    max-width: 100%;
+    padding: 2rem;
+    text-align: left;
+    position: relative;
+    height: 400px;
+  }
+  
+  .header img{
+    width: 100%;
+  }
+  
+  .header .image-overlay{
+    position: relative;
+    top: -280px;
+    left: 150pxpx;
+    padding: 2rem;
+    color: white;
+    font-weight: bolder;
+  }
+  
+  .header .image-overlay button{
+    background-color: #007bb5;
+    color: white;
+    border: none;
+    padding: 0.5rem;
+    border-radius: 10px;;
+  }
+  
+  .categories{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2rem;
+  }
+  
+  
+  .categories button{
+    width: 205px;
+    height: 205px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px;
+    background-color: white;
+    font-size: smaller;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    border: none;
+    color: black;
+  }
+  
+  footer{
+    display: flex;
+    justify-content: space-between;
+    background-color: black;
+    color: white;
+    height: 100%;
+    max-width: 100%;
+    flex-wrap: wrap;
+    padding: 1rem
+  }
+  .About{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1rem;
+    /* flex-wrap: wrap; */
+  }
+  .connect{
+    display: flex;
+    flex-direction: column;
+  }
+  
+  footer .connect button{
+    background-color: black;
+    border: none;
+    padding: 0.45rem;
+  }
+  
+  footer .resources button{
+    background-color: black;
+    border: none;
+    padding: 0.45rem;
+  }

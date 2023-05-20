@@ -1,0 +1,61 @@
+.cartCard {
+    display: flex;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    padding: 1rem;
+    justify-content: space-around;
+    margin: auto;
+    max-width: 500px;
+    margin-bottom: 2rem;
+    border-radius: 1rem;
+}
+
+.cartCard img {
+    width: 150px;
+    height: 200px;
+}
+
+.cartCard .productDescription {
+    display: flex;
+    flex-direction: column;
+}
+
+.cartCard .productDescription .productName {
+    font-weight: bold;
+}
+
+.cartCard .productDescription .productPrice {
+    font-weight: bold;
+}
+
+.cartCard .productDescription .productAuthor {
+    font-weight: light;
+    color: rgb(167, 162, 162);
+}
+
+.cartCard .productDescription .originalPrice {
+    font-weight: light;
+    color: rgb(167, 162, 162);
+    text-decoration: line-through;
+}
+
+.cartCard .btn-addToWishlist {
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bb5;
+    color: white;
+    max-width: 100%;
+}
+
+.cartCard .btn-remove {
+    margin: 0.5rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    border-radius: 10px;
+    border: none;
+    background-color: #007bb5;
+    color: white;
+    max-width: 100%;
+}

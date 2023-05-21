@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 export const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     
-    const { handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist, isProductInCart, isProductInWishlist} = useContext(DataContext);
+    const { handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist, isProductInCart, isProductInWishlist, getProductDetails} = useContext(DataContext);
 
     const isInCart = isProductInCart(product);
 
@@ -25,7 +25,10 @@ export const ProductCard = ({ product }) => {
                 <div className="productImage">
                     <div></div>
                     <div>
-                    <img src={product?.img} alt="book-cover"  onClick={() => navigate(`/products/${product?._id}`) } />
+                        <img src={product?.img} alt="book-cover"
+                            onClick={() => getProductDetails(product?._id)}
+                                // navigate(`/products/${product?._id}`)}
+                        />
                     </div>
                     <button className="btn-wishlist" onClick={() => addToWishlistHandler(product)}>
                         <i className="fa fa-heart" aria-hidden="true" style= {{color: isInwishlist ? "red" : "grey"}}></i>

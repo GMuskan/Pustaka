@@ -3,9 +3,7 @@ import { DataContext } from "../../Contexts/DataContext"
 import "./SideBar.css"
 
 export const SideBar = () => {
-    // console.log(state?.categoryFilter, state?.categories);
     const {  sortByPrice, filterByCategory, filterByRatings, filterByPriceRange, clearFilterHandler, categories, categoryFilter, priceFilter, ratingFilter, priceRangeFilter } = useContext(DataContext);
-    // console.log(categoryFilter);
 
     const ratingArray = [1, 2, 3, 4];
     const priceFilterArray = [

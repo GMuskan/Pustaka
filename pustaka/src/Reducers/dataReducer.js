@@ -1,8 +1,10 @@
 export const initialState = {
     products: [],
     categories: [],
+    productDetail: {},
     cart: [],
     wishlist: [],
+    savedForLaterItems: [],
     categoryFilter: [],
     search: "",
     rating: 0,
@@ -16,18 +18,26 @@ export const DataReducer = (state, action) => {
             return { ...state, products: action.payload }
         case "SET_CATEGORIES":
             return { ...state, categories: action.payload }
-        case "SET_CART":
+        case "SET_PRODUCT_DETAILS":
+            return { ...state, productDetail: action.payload }
+        case "ADD_TO_CART":
             return { ...state, cart: action.payload }
-         case "UPDATE_CART":
-            return { ...state, cart: state?.cart.filter((item) => item._id!==action.payload._id)}
-        case "SET_WISHLIST":
+        case "SET_CART":
+            return { ...state, cart: [...action.payload.cart, action.payload.item], wishlist: state?.wishlist.filter((item) => item._id !== action.payload.item._id) }
+        case "UPDATE_CART":
+            return { ...state, cart: state?.cart.filter((item) => item._id !== action.payload._id) }
+        case "ADD_TO_WISHLIST":
             return { ...state, wishlist: action.payload }
+        case "SET_WISHLIST":
+            return { ...state, wishlist: [...action.payload.wishlist, action.payload.item], cart: state?.cart.filter((item) => item._id !== action.payload.item._id) }
         case "UPDATE_WISHLIST":
-            return { ...state, wishlist: state?.wishlist.filter((item) => item._id!==action.payload._id)}
+            return { ...state, wishlist: state?.wishlist.filter((item) => item._id !== action.payload._id) }
+        case "SAVE_FOR_LATER":
+            return { ...state, savedForLaterItems: action.payload }
         case "SET_PRICE_FILTER":
-            return {...state, sortByPrice: action.payload}
+            return { ...state, sortByPrice: action.payload }
         case "SET_CATEGORY_FILTER":
-            return {...state, categoryFilter: state?.categoryFilter.includes(action.payload) ? state?.categoryFilter.filter((category) => category !== action.payload) : [...state?.categoryFilter, action.payload]}
+            return { ...state, categoryFilter: state?.categoryFilter.includes(action.payload) ? state?.categoryFilter.filter((category) => category !== action.payload) : [...state?.categoryFilter, action.payload] }
         case "FILTER_BY_RATING":
             return { ...state, rating: action.payload }
         case "FILTER_BY_PRICE_RANGE":
@@ -36,7 +46,7 @@ export const DataReducer = (state, action) => {
             return { ...state, categoryFilter: [], sortByPrice: "", rating: 0, priceRange: 0 }
 
         case "SET_SEARCH":
-            return {...state, search: action.payload}
+            return { ...state, search: action.payload }
         default:
             return state;
     }

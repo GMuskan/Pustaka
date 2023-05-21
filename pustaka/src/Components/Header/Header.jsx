@@ -13,7 +13,7 @@ const getActiveStyle = ({ isActive }) => ({
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { searchProductHandler } = useContext(DataContext)
+    const { searchProductHandler, wishlist, cart } = useContext(DataContext)
     return(
         <>
         <nav>
@@ -33,10 +33,21 @@ export const Header = () => {
             </div>
             <div className="actionItems">
                 <button className="btn-wishlist" onClick={() => navigate("/wishlist")}>
-                    <i className="fa fa-heart" aria-hidden="true"></i>
+                    <div className="btn-icon">
+                        <i className="fa fa-heart" aria-hidden="true"></i>
+                    </div>
+                    <div className="btn-count">
+                        <p>{wishlist.length}</p>
+                    </div>    
                 </button>
+
                 <button className="btn-cart" onClick={() => navigate("/cart")}>
-                    <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                    <div className="btn-icon">
+                        <i className="fa fa-shopping-cart" aria-hidden="true"></i>
+                    </div>
+                    <div className="btn-count">
+                        <p>{cart.length}</p>
+                    </div> 
                 </button>
                 <button className="btn-user" onClick={() => navigate("/user-profile")}>
                     <i className="fa fa-user" aria-hidden="true"></i>

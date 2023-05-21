@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 export const ProductCard = ({ product }) => {
     const navigate = useNavigate();
     
-    const { handleAddToCart, handleAddToWishlist, isProductInCart, isProductInWishlist} = useContext(DataContext);
+    const { handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist, isProductInCart, isProductInWishlist} = useContext(DataContext);
 
     const isInCart = isProductInCart(product);
 
@@ -16,7 +16,7 @@ export const ProductCard = ({ product }) => {
     const isInwishlist = isProductInWishlist(product);
 
     const addToWishlistHandler = (product) => {
-        isInwishlist ? navigate("/wishlist") : handleAddToWishlist(product)
+        isInwishlist ? handleRemoveFromWishlist(product) : handleAddToWishlist(product)
     }
     
     return (

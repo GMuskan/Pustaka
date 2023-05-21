@@ -38,7 +38,7 @@
     text-decoration: line-through;
 }
 
-.wishlistCard .btn-addToCart {
+.wishlistCard .btn-moveToCart {
     margin: 0.5rem;
     margin-bottom: 1rem;
     padding: 0.5rem;
@@ -58,4 +58,12 @@
     background-color: #007bb5;
     color: white;
     max-width: 100%;
+}
+
+.btn-moveToCart:hover {
+    cursor: pointer;
+}
+
+.btn-remove:hover{
+        cursor: pointer;
 }

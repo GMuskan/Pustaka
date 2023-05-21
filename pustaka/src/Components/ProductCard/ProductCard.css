@@ -79,6 +79,18 @@
     max-width: 100%;
 }
 
+.productCard .btn-addToCart:hover {
+    cursor: pointer;
+}
+
+.btn-wishlist:hover{
+    cursor: pointer;
+}
+
+.productCard img:hover {
+   cursor: pointer;
+}
+
 @media (min-width: 768px){
     .productCard{
         width: 280px;

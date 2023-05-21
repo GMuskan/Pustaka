@@ -18,8 +18,12 @@ export const DataReducer = (state, action) => {
             return { ...state, categories: action.payload }
         case "SET_CART":
             return { ...state, cart: action.payload }
+         case "UPDATE_CART":
+            return { ...state, cart: state?.cart.filter((item) => item._id!==action.payload._id)}
         case "SET_WISHLIST":
             return { ...state, wishlist: action.payload }
+        case "UPDATE_WISHLIST":
+            return { ...state, wishlist: state?.wishlist.filter((item) => item._id!==action.payload._id)}
         case "SET_PRICE_FILTER":
             return {...state, sortByPrice: action.payload}
         case "SET_CATEGORY_FILTER":

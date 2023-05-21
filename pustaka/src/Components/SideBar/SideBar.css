@@ -59,6 +59,10 @@ input[type="range"] {
     padding: 0.05rem;
 }
 
+.btn-clear {
+    cursor: pointer;
+}
+
 @media (min-width: 768px){
     .Filters{
         width: 200px;

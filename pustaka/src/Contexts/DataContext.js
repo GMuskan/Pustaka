@@ -83,13 +83,29 @@ export const DataProvider = ({ children }) => {
         navigate("/products");
     }
 
+    const getUserCart = async () => {
+          if (token) {
+            const encodedToken = localStorage.getItem("token");
+            const response = await axios.get('/api/user/cart', {
+                headers: {
+                    authorization: encodedToken,
+                },
+            })
+            console.log(response?.data?.cart);
+            dispatch({ type: "SET_CART", payload: response?.data?.cart });
+          }
+    }
+
     const isProductInCart = (product) => {
-        const foundProduct = state?.cart?.find(item => item._id === product._id)
-        if (foundProduct) {
-            return true;
-        } else {
-            return false;
+        if (token) {
+            const foundProduct = state?.cart?.find(item => item._id === product._id)
+            if (foundProduct) {
+                return true;
+            } else {
+                return false;
+            }
         }
+        
     }
     const handleAddToCart = async (product) => {
         try {
@@ -106,19 +122,51 @@ export const DataProvider = ({ children }) => {
                 
             );
 
-            dispatch({type: "SET_CART", payload: response?.data?.cart})
+            dispatch({ type: "SET_CART", payload: response?.data?.cart });
         }catch (e) {
             console.error(e);
         }
     }
 
-    const isProductInWishlist = (product) => {
-        const foundProduct = state?.wishlist?.find(item => item._id === product._id)
-        if (foundProduct) {
-            return true;
-        } else {
-            return false;
+    const handleRemoveFromCart = async(product) => {
+        try {
+            const encodedToken = localStorage.getItem("token");
+            const response = await axios.delete(`/api/user/cart/${product._id}`, {
+                headers: {
+                    authorization: encodedToken,
+                },
+            });
+            console.log(response);
+            dispatch({type: "UPDATE_CART", payload: product})
+
+        } catch (err) {
+            console.error(err);
         }
+
+    }
+
+    const getUserWishlist = async () => {
+          if (token) {
+            const encodedToken = localStorage.getItem("token");
+            const response = await axios.get('/api/user/wishlist', {
+                headers: {
+                    authorization: encodedToken, // passing token as an authorization header
+                },
+            })
+            console.log(response?.data?.wishlist);
+            dispatch({ type: "SET_WISHLIST", payload: response?.data?.wishlist });
+          }
+    }
+
+    const isProductInWishlist = (product) => {
+        if (token) {
+            const foundProduct = state?.wishlist.length > 0 && state?.wishlist?.find(item => item._id === product._id)
+            if (foundProduct) {
+                return true;
+            } else {
+                return false;
+            }
+        }  
     }
 
     const handleAddToWishlist = async (product) => {
@@ -137,11 +185,44 @@ export const DataProvider = ({ children }) => {
                 
             );
 
-            dispatch({type: "SET_WISHLIST", payload: response?.data?.wishlist})
+            dispatch({ type: "SET_WISHLIST", payload: response?.data?.wishlist })
+            // handleRemoveFromCart(product);
         }catch (e) {
             console.error(e);
         }
     }
+
+    const handleRemoveFromWishlist = async(product) => {
+        try {
+            const encodedToken = localStorage.getItem("token");
+            const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
+                headers: {
+                    authorization: encodedToken,
+                },
+            });
+            console.log(response);
+             dispatch({type: "UPDATE_WISHLIST", payload: product})
+
+        } catch (err) {
+            console.error(err);
+        }
+
+    }
+
+    const handleMoveToCart = (product) => {
+        if (!state?.cart.find(item => item._id === product._id)) {
+            dispatch({type: "SET_CART", payload: [...state?.cart, product]})
+        }
+        dispatch({type: "UPDATE_WISHLIST", payload: product})
+    }
+
+     const handleMoveToWishlist = (product) => {
+        if (!state?.wishlist.find(item => item._id === product._id)) {
+            dispatch({type: "SET_WISHLIST", payload: [...state?.wishlist, product]})
+        }
+        dispatch({type: "UPDATE_CART", payload: product})
+    }
+
 
     const sortByPrice = (e) => {
             dispatch({ type: "SET_PRICE_FILTER", payload: e.target.value })
@@ -208,6 +289,12 @@ export const DataProvider = ({ children }) => {
                 searchProductHandler,
                 isProductInCart,
                 isProductInWishlist,
+                handleRemoveFromWishlist,
+                getUserWishlist,
+                getUserCart,
+                handleRemoveFromCart,
+                handleMoveToCart,
+                handleMoveToWishlist,
                 token, user,
                 products: searchedProducts,
                 categories: state.categories,

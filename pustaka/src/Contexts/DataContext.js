@@ -14,6 +14,8 @@ export const DataProvider = ({ children }) => {
     const [token, setToken] = useState(localStorageToken);
     const [user, setUser] = useState(localStorageUser);
     const [loader, setLoader] = useState(false);
+    const [couponModal, setCouponModal] = useState(false);
+    const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
     const encodedToken = localStorage.getItem("token");
 
     const clearWishlistAndCart = () => {
@@ -409,6 +411,8 @@ export const DataProvider = ({ children }) => {
 
 
     const calculatePercentOff = (discountedPrice, originalPrice) => Math.floor(((originalPrice - discountedPrice) * 100) / originalPrice)
+    const calculateTotalPrice = (cart) => cart.reduce((acc, curr) => acc + (curr?.qty * curr?.originalPrice), 0)
+    const calculateTotalDiscount = (cart) => cart.reduce((acc, curr) => acc + curr?.qty * (curr?.originalPrice - curr?.price), 0)
 
     return (
         <>
@@ -434,6 +438,12 @@ export const DataProvider = ({ children }) => {
                 increaseProductQuantity,
                 decreaseProductQuantity,
                 calculatePercentOff,
+                calculateTotalPrice,
+                calculateTotalDiscount,
+                setCouponModal,
+                setCouponValue,
+                couponValue, 
+                couponModal,
                 loader,
                 token, user,
                 products: searchedProducts,

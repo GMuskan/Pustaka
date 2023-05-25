@@ -39,7 +39,7 @@ export const ProductCard = ({ product }) => {
                         <p className="productName">{product?.name}</p>
                         <p className="productAuthor">{product?.author}</p>
                         <p className="productAuthor">{product?.category}</p>
-                        <p className="productPrice"><span>Rs.{product?.price}{"  "}</span><span className="originalPrice">{" "}Rs. {product?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(product?.price, product?.originalPrice)}%OFF)</span></p>
+                        <p className="productPrice"><span>₹{product?.price}{"  "}</span><span className="originalPrice">{" "}Rs. {product?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(product?.price, product?.originalPrice)}%OFF)</span></p>
                     </div>
                     <div className="productRating">
                         {product?.rating}

@@ -17,7 +17,7 @@ export const Wishlist = () => {
                             <div>
                                 <p className="productName">{wishlistItem.name}</p>
                                 <p className="productAuthor">{wishlistItem.author}</p>
-                                <p className="productPrice"><span>Rs.{wishlistItem.price}{"  "}</span><span className="originalPrice">{" "}Rs. {wishlistItem.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(wishlistItem?.price, wishlistItem?.originalPrice)}%OFF)</span></p>
+                                <p className="productPrice"><span>₹{wishlistItem.price}{"  "}</span><span className="originalPrice">{" "}Rs. {wishlistItem.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(wishlistItem?.price, wishlistItem?.originalPrice)}%OFF)</span></p>
                             </div>
                             <div>
                                 <button className="btn-moveToCart" style={{ backgroundColor: isProductInCart(wishlistItem) ? "lightgray" : "#007bb5" }} disabled={isProductInCart(wishlistItem)} onClick={() => handleMoveToCart(wishlistItem)}>{isProductInCart(wishlistItem) ? "Item In Cart" : "Add To Cart"}</button>

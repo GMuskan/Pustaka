@@ -1,3 +1,8 @@
+.cart-page{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    column-gap: 0.1rem;
+}
 .cartCard {
     display: flex;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
@@ -70,4 +75,65 @@
 
 .discount{
     color: #20aa20;
+}
+
+.total-price-card{
+    width: 300px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
+    padding: 2rem;
+    position: relative;
+    height: 62vh;
+    /* margin: auto; */
+    
+}
+
+.coupon{
+    display: flex;
+    justify-content: space-between;
+}
+
+.apply-coupon{
+    padding: 0.5rem;
+    height: 4vh;
+    position: relative;
+    top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    
+}
+
+.cart-price-details ul li{
+    display: flex;
+    justify-content: space-between;
+    line-height: 2px;;
+}
+
+.total-amount{
+    display: flex;
+    justify-content: space-between;
+}
+
+.discount-statement{
+    margin: 1.5rem
+}
+
+.btn-checkout{
+    position: relative;
+    width: 300px;
+    padding: 0.5rem;
+    background-color: #007bb5;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+@media (max-width: 768px){
+    .cart-page{
+        display: grid;
+        grid-template-columns: 1fr;
+    }
+    .total-price-card{
+        margin: auto;
+    }
 }

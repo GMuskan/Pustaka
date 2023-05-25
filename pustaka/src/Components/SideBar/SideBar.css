@@ -37,9 +37,9 @@
 
 datalist {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
-    writing-mode: vertical-lr;
+    writing-mode: horizontal-lr;
     width: 150px;
 }
 

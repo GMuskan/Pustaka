@@ -18,20 +18,28 @@ export const DataReducer = (state, action) => {
             return { ...state, products: action.payload }
         case "SET_CATEGORIES":
             return { ...state, categories: action.payload }
+        case "SET_INITIAL_WISHLIST":
+            return { ...state, wishlist: action.payload }
+        case "SET_INITIAL_CART":
+            return { ...state, cart: action.payload }
         case "SET_PRODUCT_DETAILS":
             return { ...state, productDetail: action.payload }
         case "ADD_TO_CART":
             return { ...state, cart: action.payload }
-        case "SET_CART":
-            return { ...state, cart: [...action.payload.cart, action.payload.item], wishlist: state?.wishlist.filter((item) => item._id !== action.payload.item._id) }
+        // case "SET_CART":
+        //     return { ...state, cart: [...action.payload.cart, action.payload.item], wishlist: state?.wishlist.filter((item) => item._id !== action.payload.item._id) }
         case "UPDATE_CART":
-            return { ...state, cart: state?.cart.filter((item) => item._id !== action.payload._id) }
+            return { ...state, cart: action.payload }
+        case "INCREASE_PRODUCT_QUANTITY":
+            return { ...state, cart: action.payload }
+        case "DECREASE_PRODUCT_QUANTITY":
+            return { ...state, cart: action.payload }
         case "ADD_TO_WISHLIST":
             return { ...state, wishlist: action.payload }
         case "SET_WISHLIST":
-            return { ...state, wishlist: [...action.payload.wishlist, action.payload.item], cart: state?.cart.filter((item) => item._id !== action.payload.item._id) }
+            return { ...state, wishlist: action.payload.wishlist, cart: action.payload.cart }
         case "UPDATE_WISHLIST":
-            return { ...state, wishlist: state?.wishlist.filter((item) => item._id !== action.payload._id) }
+            return { ...state, wishlist: action.payload }
         case "SAVE_FOR_LATER":
             return { ...state, savedForLaterItems: action.payload }
         case "SET_PRICE_FILTER":
@@ -44,7 +52,6 @@ export const DataReducer = (state, action) => {
             return { ...state, priceRange: action.payload }
         case "CLEAR_FILTERS":
             return { ...state, categoryFilter: [], sortByPrice: "", rating: 0, priceRange: 0 }
-
         case "SET_SEARCH":
             return { ...state, search: action.payload }
         default:

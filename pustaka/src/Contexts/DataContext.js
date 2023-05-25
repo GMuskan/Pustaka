@@ -2,6 +2,7 @@ import { createContext, useEffect, useReducer, useState } from "react";
 import * as axios from 'axios';
 import { DataReducer, initialState } from "../Reducers/dataReducer";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
@@ -11,15 +12,25 @@ export const DataProvider = ({ children }) => {
     const localStorageUser = JSON.parse(localStorage?.getItem("user"));
     const localStorageToken = JSON.parse(localStorage?.getItem("token"));
     const [token, setToken] = useState(localStorageToken);
-    const [user, setUser] = useState(localStorageUser)
+    const [user, setUser] = useState(localStorageUser);
+    const [loader, setLoader] = useState(false);
+    const encodedToken = localStorage.getItem("token");
+
+    const clearWishlistAndCart = () => {
+        dispatch({ type: "SET_INITIAL_WISHLIST", payload: [] })
+        dispatch({ type: "SET_INITIAL_CART", payload: [] })
+    }
 
     const getData = async () => {
         try {
+            setLoader(true);
             const productsData = await axios.get('/api/products');
             dispatch({ type: "SET_PRODUCTS", payload: productsData?.data?.products });
             const categoriesData = await axios.get('/api/categories');
             dispatch({ type: "SET_CATEGORIES", payload: categoriesData?.data?.categories });
+            setLoader(false);
         } catch (e) {
+            setLoader(false);
             console.error(e)
         }
     }
@@ -80,6 +91,7 @@ export const DataProvider = ({ children }) => {
             setUser(foundUser);
             localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
             setToken(encodedToken);
+
         } catch (e) {
             console.error(e)
         }
@@ -90,20 +102,12 @@ export const DataProvider = ({ children }) => {
         localStorage.removeItem("token");
         setToken("");
         setUser();
+        // clearWishlist();
         navigate("/products");
+
     }
 
-    const getUserCart = async () => {
-        if (token) {
-            const encodedToken = localStorage.getItem("token");
-            const response = await axios.get('/api/user/cart', {
-                headers: {
-                    authorization: encodedToken,
-                },
-            })
-            dispatch({ type: "SET_CART", payload: response?.data?.cart });
-        }
-    }
+
 
     const isProductInCart = (product) => {
         if (token) {
@@ -118,7 +122,6 @@ export const DataProvider = ({ children }) => {
     }
     const handleAddToCart = async (product) => {
         try {
-            const encodedToken = localStorage.getItem("token");
             const response = await axios.post('/api/user/cart',
                 {
                     product,
@@ -131,6 +134,16 @@ export const DataProvider = ({ children }) => {
 
             );
             dispatch({ type: "ADD_TO_CART", payload: response?.data?.cart });
+            toast.success('Added to Cart!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (e) {
             console.error(e);
         }
@@ -138,35 +151,33 @@ export const DataProvider = ({ children }) => {
 
     const handleRemoveFromCart = async (product) => {
         try {
-            const encodedToken = localStorage.getItem("token");
             const response = await axios.delete(`/api/user/cart/${product?._id}`, {
                 headers: {
                     authorization: encodedToken,
                 },
             });
-            dispatch({ type: "UPDATE_CART", payload: product })
-
+            dispatch({ type: "UPDATE_CART", payload: response?.data?.cart })
+            toast.error('Removed From Cart!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (err) {
             console.error(err);
         }
 
     }
 
-    const getUserWishlist = async () => {
-        if (token) {
-            const encodedToken = localStorage.getItem("token");
-            const response = await axios.get('/api/user/wishlist', {
-                headers: {
-                    authorization: encodedToken,
-                },
-            })
-            dispatch({ type: "SET_WISHLIST", payload: response?.data?.wishlist });
-        }
-    }
+
 
     const isProductInWishlist = (product) => {
         if (token) {
-            const foundProduct = state?.wishlist.length > 0 && state?.wishlist?.find(item => item._id === product._id)
+            const foundProduct = state?.wishlist?.length > 0 && state?.wishlist?.find(item => item._id === product._id)
             if (foundProduct) {
                 return true;
             } else {
@@ -176,9 +187,7 @@ export const DataProvider = ({ children }) => {
     }
 
     const handleAddToWishlist = async (product) => {
-
         try {
-            const encodedToken = localStorage.getItem("token");
             const response = await axios.post('/api/user/wishlist',
                 {
                     product,
@@ -191,6 +200,16 @@ export const DataProvider = ({ children }) => {
 
             );
             dispatch({ type: "ADD_TO_WISHLIST", payload: response?.data?.wishlist })
+            toast.success('Added to Wishlist!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (e) {
             console.error(e);
         }
@@ -198,14 +217,22 @@ export const DataProvider = ({ children }) => {
 
     const handleRemoveFromWishlist = async (product) => {
         try {
-            const encodedToken = localStorage.getItem("token");
             const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
                 headers: {
                     authorization: encodedToken,
                 },
             });
-            dispatch({ type: "UPDATE_WISHLIST", payload: product })
-
+            dispatch({ type: "UPDATE_WISHLIST", payload: response?.data?.wishlist })
+            toast.error('Removed From Wishlist!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (err) {
             console.error(err);
         }
@@ -213,45 +240,96 @@ export const DataProvider = ({ children }) => {
     }
 
     const handleMoveToCart = async (product) => {
-        if (!state?.cart.find(item => item._id === product._id)) {
-            dispatch({ type: "SET_CART", payload: { cart: state?.cart, item: product } })
-            const encodedToken = localStorage.getItem("token");
-            const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
-                headers: {
-                    authorization: encodedToken,
-                },
+        try {
+            handleAddToCart(product);
+            toast.success('Added To Cart!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             });
+        } catch (e) {
+            console.error(e);
         }
+
     }
 
     const handleMoveToWishlist = async (product) => {
         try {
-            if (!state?.wishlist.find(item => item._id === product?._id)) {
-                dispatch({ type: "SET_WISHLIST", payload: { wishlist: state?.wishlist, item: product } })
-                const encodedToken = localStorage.getItem("token");
-                const response = await axios.delete(`/api/user/cart/${product?._id}`, {
-                    headers: {
-                        authorization: encodedToken,
-                    },
-                });
-            }
-            else {
-                navigate("/wishlist");
-                // console.log(product);
-                // dispatch({ type: "SAVE_FOR_LATER", payload: product });
-                // const encodedToken = localStorage.getItem("token");
-                // const response = await axios.delete(`/api/user/cart/${product?._id}`, {
-                //     headers: {
-                //         authorization: encodedToken,
-                //     },
-                // });
-                // console.log(response)
-                // console.log(state);
-            }
+            const response = await axios.delete(`/api/user/cart/${product?._id}`, {
+                headers: {
+                    authorization: encodedToken,
+                },
+            });
+            dispatch({ type: "SET_WISHLIST", payload: { wishlist: [...state?.wishlist, product], cart: response?.data?.cart } })
+            toast.success('Moved To Wishlist!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            toast.error('Removed From Cart!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
         } catch (e) {
             console.error(e)
         }
 
+    }
+
+    const increaseProductQuantity = async (productId) => {
+        try {
+            const response = await axios.post(`/api/user/cart/${productId}`,
+                {
+                    action: {
+                        type: "increment"
+                    },
+                },
+                {
+                    headers: {
+                        authorization: encodedToken,
+                    },
+                }
+            )
+            dispatch({ type: "INCREASE_PRODUCT_QUANTITY", payload: response?.data?.cart })
+        } catch (e) {
+            console.error(e)
+        }
+    }
+
+    const decreaseProductQuantity = async (productId) => {
+        try {
+            const response = await axios.post(`/api/user/cart/${productId}`,
+                {
+                    action: {
+                        type: "decrement"
+                    },
+                },
+                {
+                    headers: {
+                        authorization: encodedToken,
+                    },
+                }
+            )
+            dispatch({ type: "DECREASE_PRODUCT_QUANTITY", payload: response?.data?.cart })
+        } catch (e) {
+            console.error(e)
+        }
     }
 
 
@@ -301,8 +379,36 @@ export const DataProvider = ({ children }) => {
     }
 
     useEffect(() => {
+        const getWishlistAndCart = async () => {
+            try {
+                if (token) {
+                    const wishlistResponse = await axios.get('/api/user/wishlist', {
+                        headers: {
+                            authorization: encodedToken,
+                        },
+                    })
+                    const cartResponse = await axios.get('/api/user/cart', {
+                        headers: {
+                            authorization: encodedToken,
+                        },
+                    })
+                    dispatch({ type: "SET_INITIAL_WISHLIST", payload: wishlistResponse?.data?.wishlist });
+                    dispatch({ type: "SET_INITIAL_CART", payload: cartResponse?.data?.cart });
+
+                }
+            } catch (e) {
+                console.error(e)
+            }
+
+        }
         getData();
-    }, [])
+        !token && clearWishlistAndCart();
+        !token && clearFilterHandler();
+        token && getWishlistAndCart();
+    }, [token, encodedToken])
+
+
+    const calculatePercentOff = (discountedPrice, originalPrice) => Math.floor(((originalPrice - discountedPrice) * 100) / originalPrice)
 
     return (
         <>
@@ -321,12 +427,14 @@ export const DataProvider = ({ children }) => {
                 isProductInCart,
                 isProductInWishlist,
                 handleRemoveFromWishlist,
-                getUserWishlist,
-                getUserCart,
                 handleRemoveFromCart,
                 handleMoveToCart,
                 handleMoveToWishlist,
                 getProductDetails,
+                increaseProductQuantity,
+                decreaseProductQuantity,
+                calculatePercentOff,
+                loader,
                 token, user,
                 products: searchedProducts,
                 productDetail: state.productDetail,

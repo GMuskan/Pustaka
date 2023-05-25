@@ -67,3 +67,7 @@
 .btn-remove:hover {
     cursor: pointer;
 }
+
+.discount{
+    color: #20aa20;
+}

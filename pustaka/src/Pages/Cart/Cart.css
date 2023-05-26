@@ -80,9 +80,9 @@
 .total-price-card{
     width: 300px;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-    padding: 2rem;
+    padding: 1rem;
     position: relative;
-    height: 62vh;
+    height: fit-content;
     /* margin: auto; */
     
 }
@@ -102,6 +102,10 @@
     
 }
 
+.cart-price-details ul {
+    padding: 0;
+}
+
 .cart-price-details ul li{
     display: flex;
     justify-content: space-between;
@@ -111,10 +115,12 @@
 .total-amount{
     display: flex;
     justify-content: space-between;
+    padding: 1rem;
+    margin: -1rem;
 }
 
 .discount-statement{
-    margin: 1.5rem
+    margin: 1rem
 }
 
 .btn-checkout{
@@ -125,6 +131,26 @@
     color: white;
     border: none;
     border-radius: 5px;
+    cursor: pointer;
+}
+
+
+.discount-statement,
+.coupon-msg {
+    color: rgb(18, 173, 18);
+}
+
+.coupon-msg p {
+    display: flex;;
+    gap: 0.5rem
+}
+
+.coupon-msg img {
+    width: 17px;
+    margin-top: -6px;
+}
+
+.remove-coupon {
     cursor: pointer;
 }
 

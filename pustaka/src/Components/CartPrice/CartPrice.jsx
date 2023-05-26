@@ -10,6 +10,8 @@ export const CartPrice = ({ cart }) => {
         : 0;
 
     const totalAmout = parseFloat(totalPrice - totalDiscount - coupon).toFixed(2);
+
+    const savedMoney = totalPrice - totalAmout
     return (
         <>
             <div className="coupon">
@@ -37,6 +39,17 @@ export const CartPrice = ({ cart }) => {
                         <p>Coupon Discount</p>
                         <p>{coupon !== 0 && "-"}₹ {coupon.toFixed(2)}</p>
                     </li>
+                    {coupon !== 0 && (
+                        <li className="coupon-msg">
+                            <p>
+                                <img src="https://cdn-icons-png.flaticon.com/512/726/726448.png" alt="coupon-icon" />
+                                <artlicle>{couponValue.couponName}</artlicle>
+                            </p>
+                            <p className="remove-coupon" onClick={() => setCouponValue({ couponName: "", value: 0 })}>
+                                ❌
+                            </p>
+                        </li>
+                    )}
                 </ul>
             </div>
             <hr />
@@ -45,7 +58,7 @@ export const CartPrice = ({ cart }) => {
                 <h4>₹{totalAmout}</h4>
             </div>
             <hr />
-            <div className="discount-statement">You will save Rs. on this order</div>
+            <div className="discount-statement">You will save ₹{savedMoney} on this order</div>
             <div>
                 <button className="btn-checkout">Checkout</button>
             </div>

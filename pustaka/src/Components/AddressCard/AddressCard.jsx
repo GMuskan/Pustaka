@@ -14,6 +14,7 @@ export const AddressCard = ({ userAddress }) => {
         const newAddressArray = addresses.filter((address) => address.id !== addressId)
         setUserAddresses(newAddressArray)
     }
+
     return (
         <>
             <div className="address-card">

@@ -13,6 +13,8 @@ const getActiveStyle = ({ isActive }) => ({
 
 export const Login = () => {
 
+    const [passwordType, setPasswordType] = useState("password")
+
     const navigate = useNavigate();
     const location = useLocation();
 
@@ -28,6 +30,14 @@ export const Login = () => {
         changeTitle("Login")
     }, [])
 
+    const handleShowHidePassword = () => {
+        if (passwordType === "password") {
+            setPasswordType("text")
+        } else {
+            setPasswordType("password");
+        }
+    }
+
     return (
         <>
             <div className="login-card">
@@ -42,11 +52,12 @@ export const Login = () => {
                     <label htmlFor="password">
                         Password
                     </label>
-                    <input type="password" id="password" placeholder="********" value={loginForm.password} onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })} />
+                    <input type={passwordType} id="password" placeholder="********" value={loginForm.password} onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })} />
                 </div>
-                {/* <NavLink to="/products"> */}
-                <button onClick={() => handleLoginClick(loginForm)}>Login with Test Credentials</button>
-                {/* </NavLink> */}
+                <div className="show-hide-password">
+                    <span><input type="checkbox" onClick={() => handleShowHidePassword()} />{passwordType === "text" ? "Hide Password" : "Show Password"}</span>
+                </div>
+                <button onClick={() => handleLoginClick(loginForm)}>Login</button>
                 <NavLink style={getActiveStyle} to="/signup">Create New Account</NavLink>
             </div>
 

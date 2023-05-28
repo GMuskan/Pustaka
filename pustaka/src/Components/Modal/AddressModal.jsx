@@ -4,7 +4,7 @@ import "./AddressModal.css";
 import { v4 as uuid } from "uuid";
 
 export const AddressModal = () => {
-    const { setAddressModal, setUserAddresses, addressInput, setAddressInput } = useContext(DataContext);
+    const { setAddressModal, setUserAddresses, addressInput, setAddressInput, addresses } = useContext(DataContext);
     return (
         <>
             <div className="modal-wrapper">
@@ -77,11 +77,14 @@ export const AddressModal = () => {
                                     })} />
                         </div>
                     </div>
-                    {/* {addresses.find((address) => address.id ===} */}
                     <div>
                         <button className="add-btn" onClick={() => {
                             setAddressModal(false);
-                            setUserAddresses((prev) => prev.map(item => item.id === addressInput.id ? addressInput : item))
+                            if (addresses.some((address) => address.id === addressInput.id)) {
+                                setUserAddresses((prev) => prev.map(item => item.id === addressInput.id ? addressInput : item))
+                            } else {
+                                setUserAddresses((prev) => [...prev, addressInput])
+                            }
                             setAddressInput({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" })
                         }}>Add</button>
                     </div>

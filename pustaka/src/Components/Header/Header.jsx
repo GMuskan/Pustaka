@@ -1,26 +1,17 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
-const getActiveStyle = ({ isActive }) => ({
-    margin: "1rem 0",
-    fontSize: "20px",
-    textDecoration: "none",
-    fontWeight: isActive ? "900" : "600",
-    padding: isActive ? "1rem" : "0.5rem",
-    color: isActive ? "darkblue" : "white"
-});
+
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { searchProductHandler, wishlist, cart, token, logoutClickHandler } = useContext(DataContext);
+    const { searchProductHandler, wishlist, cart, token, logoutClickHandler, search } = useContext(DataContext);
     return (
         <>
             <nav>
-                <div className="appName">
-                    <NavLink
-                        style={getActiveStyle}
-                        to="/">Pustaka</NavLink>{"  "}
+                <div className="appName" onClick={() => navigate("/")}>
+                    Pustaka
                 </div>
                 <div className="search-container">
                     <i className="fa fa-search" aria-hidden="true"></i>
@@ -28,6 +19,7 @@ export const Header = () => {
                         type="text"
                         placeholder="Search for product"
                         className="search-bar"
+                        value={search}
                         onChange={(e) => searchProductHandler(e)}
                     />
                 </div>

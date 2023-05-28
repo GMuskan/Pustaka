@@ -16,7 +16,6 @@ export const DataProvider = ({ children }) => {
     const [couponModal, setCouponModal] = useState(false);
     const [addressModal, setAddressModal] = useState(false);
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
-    // const [addressValue, setAddressValue] = useState({ name: "", add: "", pincode: "", country: "", phone: "" });
     const [addressInput, setAddressInput] = useState({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" });
     const [deliveryAddress, setDeliveryAddress] = useState({ name: "", add: "", country: "", pincode: "", phone: "" })
     const [addresses, setUserAddresses] = useState(UserAddress);
@@ -25,8 +24,6 @@ export const DataProvider = ({ children }) => {
     const localStorageToken = JSON.parse(localStorage?.getItem("token"));
     const [token, setToken] = useState(localStorageToken?.token);
     const [user, setUser] = useState(localStorageUser?.user);
-
-    // const encodedToken = localStorage.getItem("token");
 
     const changeTitle = (title) => (document.title = `${title} | Pustaka`);
 
@@ -150,8 +147,21 @@ export const DataProvider = ({ children }) => {
         localStorage.removeItem("token");
         setToken("");
         setUser();
+        setUserAddresses(UserAddress)
         navigate("/products");
 
+    }
+
+    const categoryClickHandler = async (categoryName, categoryId) => {
+        dispatch({ type: "RESET_FILTERS", payload: [] })
+        try {
+            const response = await axios.get(`/api/categories/${categoryId}`)
+            console.log(response?.data?.category);
+            dispatch({ type: "SET_CATEGORY_FILTER", payload: categoryName })
+            navigate("/products");
+        } catch (e) {
+            console.error(e)
+        }
     }
 
 
@@ -527,6 +537,7 @@ export const DataProvider = ({ children }) => {
                 setDeliveryAddress,
                 handlePlaceOrderClick,
                 changeTitle,
+                categoryClickHandler,
                 addressInput, setAddressInput,
                 deliveryAddress,
                 couponValue,
@@ -545,6 +556,7 @@ export const DataProvider = ({ children }) => {
                 ratingFilter: state?.rating,
                 priceRangeFilter: state?.priceRange,
                 orderSummary: state?.orderSummary,
+                search: state?.search
             }}>
                 {children}
             </DataContext.Provider>

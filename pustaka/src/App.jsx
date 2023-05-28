@@ -48,7 +48,6 @@ function App() {
         <Route path="/products/:productId" element={<ProductPage />} />
         <Route path="/signup" element={<SignUp />} />
         <Route path="/login" element={<Login />} />
-        {/* <Route path="/checkout" element={<Checkout/>}/> */}
         <Route path="/mockman" element={<Mockman colorScheme="light" />} />
       </Routes>
     </div>

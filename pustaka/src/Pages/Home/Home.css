@@ -69,7 +69,6 @@
     flex-direction: column;
     text-align: left;
     line-height: 1rem;
-    /* flex-wrap: wrap; */
   }
   .connect{
     display: flex;
@@ -86,6 +85,10 @@
     background-color: black;
     border: none;
     padding: 0.45rem;
+  }
+
+  .shop-now-btn:hover{
+    cursor: pointer;
   }
 
   

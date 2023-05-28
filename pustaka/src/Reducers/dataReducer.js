@@ -31,7 +31,7 @@ export const DataReducer = (state, action) => {
         case "UPDATE_CART":
             return { ...state, cart: action.payload }
         case "DELETE_CART":
-            return {...state, cart: action.payload}
+            return { ...state, cart: action.payload }
         case "INCREASE_PRODUCT_QUANTITY":
             return { ...state, cart: action.payload }
         case "DECREASE_PRODUCT_QUANTITY":
@@ -46,12 +46,14 @@ export const DataReducer = (state, action) => {
             return { ...state, sortByPrice: action.payload }
         case "SET_CATEGORY_FILTER":
             return { ...state, categoryFilter: state?.categoryFilter.includes(action.payload) ? state?.categoryFilter.filter((category) => category !== action.payload) : [...state?.categoryFilter, action.payload] }
+        case "RESET_FILTERS":
+            return { ...state, categoryFilter: action.payload, sortByPrice: "", rating: 0, priceRange: 0, search: "" }
         case "FILTER_BY_RATING":
             return { ...state, rating: action.payload }
         case "FILTER_BY_PRICE_RANGE":
             return { ...state, priceRange: action.payload }
         case "CLEAR_FILTERS":
-            return { ...state, categoryFilter: [], sortByPrice: "", rating: 0, priceRange: 0 }
+            return { ...state, categoryFilter: [], sortByPrice: "", rating: 0, priceRange: 0, search: "" }
         case "SET_SEARCH":
             return { ...state, search: action.payload }
         case "SET_ORDER_SUMMARY":

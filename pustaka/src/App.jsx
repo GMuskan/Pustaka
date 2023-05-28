@@ -6,17 +6,19 @@ import { Profile } from './Pages/Profile/Profile';
 import { Wishlist } from './Pages/Wishlist/Wishlist';
 import Mockman from 'mockman-js';
 import './styles.css';
-import {Routes, Route} from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import { SignUp } from './Pages/SignUp/SignUp';
 import { Login } from './Pages/Login/Login';
 import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
 import { ProductPage } from './Pages/ProductPage/ProductPage';
+import { Checkout } from './Pages/Checkout/Checkout';
+import { PlaceOrder } from './Pages/PlaceOrder/PlaceOrder';
 function App() {
   return (
     <div className="App">
-      <Header/>
+      <Header />
       <Routes>
-        <Route path="/" element={<Home/>}/>
+        <Route path="/" element={<Home />} />
         <Route path="/wishlist" element={
           <PrivateRoute>
             <Wishlist />
@@ -32,11 +34,22 @@ function App() {
             <Profile />
           </PrivateRoute>
         } />
+        <Route path="/checkout" element={
+          <PrivateRoute>
+            <Checkout />
+          </PrivateRoute>
+        } />
+        <Route path="/place-order" element={
+          <PrivateRoute>
+            <PlaceOrder />
+          </PrivateRoute>
+        } />
         <Route path="/products" element={<ProductListing />} />
-        <Route path="/products/:productId" element={<ProductPage/>}/>
+        <Route path="/products/:productId" element={<ProductPage />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/mockman" element={<Mockman colorScheme="light"/>}/>
+        <Route path="/login" element={<Login />} />
+        {/* <Route path="/checkout" element={<Checkout/>}/> */}
+        <Route path="/mockman" element={<Mockman colorScheme="light" />} />
       </Routes>
     </div>
   );

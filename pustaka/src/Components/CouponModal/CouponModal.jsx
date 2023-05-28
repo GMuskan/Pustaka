@@ -1,4 +1,4 @@
-import { useContext, useDebugValue, useState } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import "./CouponModal.css";
 const COUPONS = [

@@ -3,7 +3,7 @@ import { DataContext } from "../../Contexts/DataContext"
 import "./ProductCard.css"
 import { useNavigate } from "react-router";
 export const ProductCard = ({ product }) => {
-    const navigate = useNavigate();
+    const { navigate } = useNavigate();
 
     const { handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist, isProductInCart, isProductInWishlist, getProductDetails, calculatePercentOff } = useContext(DataContext);
 

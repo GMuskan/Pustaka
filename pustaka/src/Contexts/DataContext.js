@@ -16,6 +16,7 @@ export const DataProvider = ({ children }) => {
     const [loader, setLoader] = useState(false);
     const [couponModal, setCouponModal] = useState(false);
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
+    const [deliveryAddress, setDeliveryAddress] = useState({ name: "", add: "", country: "", phone: "" })
     const encodedToken = localStorage.getItem("token");
 
     const clearWishlistAndCart = () => {
@@ -380,6 +381,20 @@ export const DataProvider = ({ children }) => {
         dispatch({ type: "CLEAR_FILTERS" })
     }
 
+    const checkoutClickHandler = (totalPrice, totalDiscount, totalAmount) => {
+        dispatch({ type: "SET_ORDER_SUMMARY", payload: { price: totalPrice, discount: totalDiscount, amount: totalAmount, coupon: couponValue } })
+        navigate("/checkout")
+    }
+
+    const handlePlaceOrderClick = () => {
+        setTimeout(() => {
+            navigate("/products")
+        }, 2000);
+        navigate("/place-order");
+
+
+    }
+
     useEffect(() => {
         const getWishlistAndCart = async () => {
             try {
@@ -414,6 +429,7 @@ export const DataProvider = ({ children }) => {
     const calculateTotalPrice = (cart) => cart.reduce((acc, curr) => acc + (curr?.qty * curr?.originalPrice), 0)
     const calculateTotalDiscount = (cart) => cart.reduce((acc, curr) => acc + curr?.qty * (curr?.originalPrice - curr?.price), 0)
 
+    // console.log(state);
     return (
         <>
             <DataContext.Provider value={{
@@ -442,7 +458,11 @@ export const DataProvider = ({ children }) => {
                 calculateTotalDiscount,
                 setCouponModal,
                 setCouponValue,
-                couponValue, 
+                checkoutClickHandler,
+                setDeliveryAddress,
+                handlePlaceOrderClick,
+                deliveryAddress,
+                couponValue,
                 couponModal,
                 loader,
                 token, user,
@@ -454,7 +474,8 @@ export const DataProvider = ({ children }) => {
                 categoryFilter: state.categoryFilter,
                 priceFilter: state?.sortByPrice,
                 ratingFilter: state?.rating,
-                priceRangeFilter: state?.priceRange
+                priceRangeFilter: state?.priceRange,
+                orderSummary: state?.orderSummary,
             }}>
                 {children}
             </DataContext.Provider>

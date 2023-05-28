@@ -9,7 +9,9 @@ export const initialState = {
     search: "",
     rating: 0,
     sortByPrice: "",
-    priceRange: 0
+    priceRange: 0,
+    orderSummary: [],
+    deliveryAddress: []
 }
 
 export const DataReducer = (state, action) => {
@@ -26,8 +28,6 @@ export const DataReducer = (state, action) => {
             return { ...state, productDetail: action.payload }
         case "ADD_TO_CART":
             return { ...state, cart: action.payload }
-        // case "SET_CART":
-        //     return { ...state, cart: [...action.payload.cart, action.payload.item], wishlist: state?.wishlist.filter((item) => item._id !== action.payload.item._id) }
         case "UPDATE_CART":
             return { ...state, cart: action.payload }
         case "INCREASE_PRODUCT_QUANTITY":
@@ -54,6 +54,8 @@ export const DataReducer = (state, action) => {
             return { ...state, categoryFilter: [], sortByPrice: "", rating: 0, priceRange: 0 }
         case "SET_SEARCH":
             return { ...state, search: action.payload }
+        case "SET_ORDER_SUMMARY":
+            return { ...state, orderSummary: { ...state.orderSummary, price: action.payload.price, discount: action.payload.discount, amount: action.payload.amount, coupon: action.payload.coupon } }
         default:
             return state;
     }

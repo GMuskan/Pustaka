@@ -2,7 +2,8 @@ import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 
 export const CartPrice = ({ cart }) => {
-    const { calculateTotalPrice, calculateTotalDiscount, setCouponModal, couponValue, setCouponValue } = useContext(DataContext);
+
+    const { calculateTotalPrice, calculateTotalDiscount, setCouponModal, couponValue, setCouponValue, checkoutClickHandler } = useContext(DataContext);
     const totalPrice = calculateTotalPrice(cart);
     const totalDiscount = calculateTotalDiscount(cart)
     const coupon = calculateTotalPrice
@@ -60,7 +61,7 @@ export const CartPrice = ({ cart }) => {
             <hr />
             <div className="discount-statement">You will save ₹{savedMoney} on this order</div>
             <div>
-                <button className="btn-checkout">Checkout</button>
+                <button className="btn-checkout" onClick={() => checkoutClickHandler(totalPrice, totalDiscount, totalAmout, cart)}>Checkout</button>
             </div>
         </>
     )

@@ -1,6 +1,6 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import "./Login.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 
 const getActiveStyle = ({ isActive }) => ({
@@ -16,13 +16,17 @@ export const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [loginForm, setLoginForm] = useState({ email: "", password: "" });
+    const [loginForm, setLoginForm] = useState({ email: "test@gmail.com", password: "test" });
 
-    const { handleLoginClick, token } = useContext(DataContext);
+    const { handleLoginClick, token, changeTitle } = useContext(DataContext);
 
     if (token) {
         navigate(location?.state?.from || "/products");
     }
+
+    useEffect(() => {
+        changeTitle("Login")
+    }, [])
 
     return (
         <>

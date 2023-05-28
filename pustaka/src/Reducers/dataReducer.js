@@ -30,6 +30,8 @@ export const DataReducer = (state, action) => {
             return { ...state, cart: action.payload }
         case "UPDATE_CART":
             return { ...state, cart: action.payload }
+        case "DELETE_CART":
+            return {...state, cart: action.payload}
         case "INCREASE_PRODUCT_QUANTITY":
             return { ...state, cart: action.payload }
         case "DECREASE_PRODUCT_QUANTITY":
@@ -40,8 +42,6 @@ export const DataReducer = (state, action) => {
             return { ...state, wishlist: action.payload.wishlist, cart: action.payload.cart }
         case "UPDATE_WISHLIST":
             return { ...state, wishlist: action.payload }
-        case "SAVE_FOR_LATER":
-            return { ...state, savedForLaterItems: action.payload }
         case "SET_PRICE_FILTER":
             return { ...state, sortByPrice: action.payload }
         case "SET_CATEGORY_FILTER":

@@ -15,6 +15,7 @@ export const CartPrice = ({ cart }) => {
     const savedMoney = totalPrice - totalAmout
     return (
         <>
+
             <div className="coupon">
                 <p><i className="fa fa-tag" aria-hidden="true"></i>Have a Coupon ?</p>
                 <button className="apply-coupon" onClick={() => setCouponModal(true)}>Apply</button>
@@ -44,7 +45,7 @@ export const CartPrice = ({ cart }) => {
                         <li className="coupon-msg">
                             <p>
                                 <img src="https://cdn-icons-png.flaticon.com/512/726/726448.png" alt="coupon-icon" />
-                                <artlicle>{couponValue.couponName}</artlicle>
+                                {couponValue.couponName}
                             </p>
                             <p className="remove-coupon" onClick={() => setCouponValue({ couponName: "", value: 0 })}>
                                 ❌

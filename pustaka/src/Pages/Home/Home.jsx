@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 // import * as axios from 'axios';
 import "./Home.css"
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 
 
@@ -15,7 +15,10 @@ const getActiveStyle = ({ isActive }) => ({
 
 export const Home = () => {
 
-    const {categories} = useContext(DataContext);
+    const { categories , changeTitle} = useContext(DataContext);
+    useEffect(() => {
+        changeTitle("Home")
+    }, [])
 
     return(
         <>

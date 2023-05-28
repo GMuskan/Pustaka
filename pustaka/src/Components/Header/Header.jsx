@@ -13,7 +13,7 @@ const getActiveStyle = ({ isActive }) => ({
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { searchProductHandler, wishlist, cart, token } = useContext(DataContext);
+    const { searchProductHandler, wishlist, cart, token, logoutClickHandler } = useContext(DataContext);
     return (
         <>
             <nav>
@@ -51,6 +51,11 @@ export const Header = () => {
                     </button>
                     <button className="btn-user" onClick={() => navigate("/user-profile")}>
                         <i className="fa fa-user" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div className="logout-btn">
+                    <button className="btn-user" onClick={logoutClickHandler}>
+                        <i className="fa fa-sign-out" aria-hidden="true"></i>
                     </button>
                 </div>
             </nav>

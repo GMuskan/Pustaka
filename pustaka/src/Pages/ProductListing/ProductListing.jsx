@@ -1,4 +1,4 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
 import "./ProductListing.css";
@@ -8,8 +8,11 @@ import { RotatingLines } from "react-loader-spinner"
 
 export const ProductListing = () => {
 
-    const { products, loader } = useContext(DataContext);
+    const { products, loader, changeTitle } = useContext(DataContext);
 
+    useEffect(() => {
+        changeTitle("Products")
+    }, [])
     return (
         <>
             <div className="product-listing-page">

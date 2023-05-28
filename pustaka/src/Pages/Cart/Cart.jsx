@@ -1,14 +1,16 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import { CartProduct } from "../../Components/CartProduct/CartProduct";
 import { CartPrice } from "../../Components/CartPrice/CartPrice";
-import { CouponModal } from "../../Components/CouponModal/CouponModal";
+import { CouponModal } from "../../Components/Modal/CouponModal";
 import "./Cart.css";
 
 export const Cart = () => {
-    const { cart, couponModal } = useContext(DataContext);
+    const { cart, couponModal, changeTitle } = useContext(DataContext);
 
-
+    useEffect(() => {
+        changeTitle("Cart")
+    }, [])
     return (
         <>
             <h1>My Cart</h1>

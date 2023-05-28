@@ -1,13 +1,16 @@
-import { useContext } from "react"
+import { useContext, useEffect } from "react"
 import "./Wishlist.css"
 import { DataContext } from "../../Contexts/DataContext";
 export const Wishlist = () => {
-    const { handleMoveToCart, handleRemoveFromWishlist, isProductInCart, wishlist, calculatePercentOff } = useContext(DataContext);
-
+    const { handleMoveToCart, handleRemoveFromWishlist, isProductInCart, wishlist, calculatePercentOff, changeTitle } = useContext(DataContext);
+    useEffect(() => {
+        changeTitle("Wishlist")
+    }, [])
     return (
         <>
             <h1>My Wishlist</h1>
-            {wishlist.map((wishlistItem) => (
+            {wishlist?.length ?
+                wishlist.map((wishlistItem) => (
                 <div key={wishlistItem?._id}>
                     <div className="wishlistCard" key={wishlistItem._id}>
                         <div className="productImage">
@@ -27,7 +30,7 @@ export const Wishlist = () => {
                     </div>
                 </div>
 
-            ))}
+            )) : <h2>Your Wishlist is Empty!</h2>}
         </>
     )
 }

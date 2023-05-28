@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import "./SignUp.css";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 
 const getActiveStyle = ({ isActive }) => ({
@@ -17,11 +17,15 @@ export const SignUp = () => {
     const navigate = useNavigate();
     const [signUpForm, setSignUpForm] = useState({ "firstName": "", "lastName": "", "email": "", "password": "" });
     
-    const { handleSignUpClick, token } = useContext(DataContext);
+    const { handleSignUpClick, token, changeTitle } = useContext(DataContext);
 
     if (token) {
         navigate("/products");
     }
+    useEffect(() => {
+        changeTitle("SignUp")
+    }, [])
+    
     return (
         <>
             <div className="signUp-card">
@@ -53,9 +57,7 @@ export const SignUp = () => {
                     </label>
                     <input type="password" id="password" placeholder="********" value={ signUpForm.password } onChange={(e) => setSignUpForm({...signUpForm, password: e.target.value})}/>
                 </div>
-                {/* <NavLink to="/products"> */}
                     <button onClick={() => handleSignUpClick(signUpForm)}>Create New Account</button>
-                {/* </NavLink> */}
                 <NavLink style={getActiveStyle} to="/login">Already have an account ? </NavLink>
             </div>
             

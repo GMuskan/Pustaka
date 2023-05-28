@@ -1,26 +1,40 @@
 import { createContext, useEffect, useReducer, useState } from "react";
 import * as axios from 'axios';
+import { v4 as uuid } from "uuid";
 import { DataReducer, initialState } from "../Reducers/dataReducer";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import { UserAddress } from "../data/address";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
+
     const navigate = useNavigate();
 
     const [state, dispatch] = useReducer(DataReducer, initialState);
-    const localStorageUser = JSON.parse(localStorage?.getItem("user"));
-    const localStorageToken = JSON.parse(localStorage?.getItem("token"));
-    const [token, setToken] = useState(localStorageToken);
-    const [user, setUser] = useState(localStorageUser);
     const [loader, setLoader] = useState(false);
     const [couponModal, setCouponModal] = useState(false);
+    const [addressModal, setAddressModal] = useState(false);
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
-    const [deliveryAddress, setDeliveryAddress] = useState({ name: "", add: "", country: "", phone: "" })
-    const encodedToken = localStorage.getItem("token");
+    // const [addressValue, setAddressValue] = useState({ name: "", add: "", pincode: "", country: "", phone: "" });
+    const [addressInput, setAddressInput] = useState({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" });
+    const [deliveryAddress, setDeliveryAddress] = useState({ name: "", add: "", country: "", pincode: "", phone: "" })
+    const [addresses, setUserAddresses] = useState(UserAddress);
 
-    const clearWishlistAndCart = () => {
+    const localStorageUser = JSON.parse(localStorage?.getItem("user"));
+    const localStorageToken = JSON.parse(localStorage?.getItem("token"));
+    const [token, setToken] = useState(localStorageToken?.token);
+    const [user, setUser] = useState(localStorageUser?.user);
+
+    // const encodedToken = localStorage.getItem("token");
+
+    const changeTitle = (title) => (document.title = `${title} | Pustaka`);
+
+    const clearWishlist = () => {
         dispatch({ type: "SET_INITIAL_WISHLIST", payload: [] })
+    }
+
+    const clearCart = () => {
         dispatch({ type: "SET_INITIAL_CART", payload: [] })
     }
 
@@ -49,55 +63,86 @@ export const DataProvider = ({ children }) => {
     }
 
     const handleSignUpClick = async ({ firstName, lastName, email, password }) => {
-        try {
-            const response = await fetch('/api/auth/signup', {
-                method: 'POST',
-                body: JSON.stringify(
-                    {
-                        firstName: firstName,
-                        lastName: lastName,
-                        email: email,
-                        password: password,
-                    }
-                ),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
+        if (firstName === "" || lastName === "" || email === "" || password === "") {
+            navigate("/signup")
+            toast.error('All fields are mandatory to signup!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             })
-            const { createdUser, encodedToken } = await response.json();
-            localStorage.setItem("user", JSON.stringify({ user: createdUser }))
-            setUser(createdUser);
-            localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
-            setToken(encodedToken);
-        } catch (e) {
-            console.error(e);
+        } else {
+            try {
+                const response = await fetch('/api/auth/signup', {
+                    method: 'POST',
+                    body: JSON.stringify(
+                        {
+                            firstName: firstName,
+                            lastName: lastName,
+                            email: email,
+                            password: password,
+                        }
+                    ),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                const { createdUser, encodedToken } = await response.json();
+                localStorage.setItem("user", JSON.stringify({ user: createdUser }))
+                setUser(createdUser);
+                localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
+                setToken(encodedToken);
+            } catch (e) {
+                console.error(e);
+            }
         }
+
 
     }
 
     const handleLoginClick = async ({ email, password }) => {
-        try {
-            const response = await fetch('/api/auth/login', {
-                method: 'POST',
-                body: JSON.stringify(
-                    {
-                        email: email,
-                        password: password
-                    }
-                ),
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
+        if (email === "" || password === "") {
+            navigate("/login")
+            toast.error('email and password cannot be empty!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
             })
-            const { foundUser, encodedToken } = await response.json();
-            localStorage.setItem("user", JSON.stringify({ user: foundUser }));
-            setUser(foundUser);
-            localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
-            setToken(encodedToken);
-
-        } catch (e) {
-            console.error(e)
         }
+        else {
+            try {
+                const response = await fetch('/api/auth/login', {
+                    method: 'POST',
+                    body: JSON.stringify(
+                        {
+                            email: email,
+                            password: password
+                        }
+                    ),
+                    headers: {
+                        'Content-type': 'application/json; charset=UTF-8',
+                    },
+                })
+                const { foundUser, encodedToken } = await response.json();
+                localStorage.setItem("user", JSON.stringify({ user: foundUser }));
+                setUser(foundUser);
+                localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
+                setToken(encodedToken);
+
+            } catch (e) {
+                console.error(e)
+            }
+        }
+
     }
 
     const logoutClickHandler = () => {
@@ -105,7 +150,6 @@ export const DataProvider = ({ children }) => {
         localStorage.removeItem("token");
         setToken("");
         setUser();
-        // clearWishlist();
         navigate("/products");
 
     }
@@ -121,42 +165,46 @@ export const DataProvider = ({ children }) => {
                 return false;
             }
         }
-
     }
     const handleAddToCart = async (product) => {
-        try {
-            const response = await axios.post('/api/user/cart',
-                {
-                    product,
-                },
-                {
-                    headers: {
-                        authorization: encodedToken,
+        if (token) {
+            try {
+                const response = await axios.post('/api/user/cart',
+                    {
+                        product,
                     },
-                }
+                    {
+                        headers: {
+                            authorization: token,
+                        },
+                    }
 
-            );
-            dispatch({ type: "ADD_TO_CART", payload: response?.data?.cart });
-            toast.success('Added to Cart!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        } catch (e) {
-            console.error(e);
+                );
+                dispatch({ type: "ADD_TO_CART", payload: response?.data?.cart });
+                toast.success('Added to Cart!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } catch (e) {
+                console.error(e);
+            }
+        } else {
+            navigate("/login")
         }
+
     }
 
     const handleRemoveFromCart = async (product) => {
         try {
             const response = await axios.delete(`/api/user/cart/${product?._id}`, {
                 headers: {
-                    authorization: encodedToken,
+                    authorization: token,
                 },
             });
             dispatch({ type: "UPDATE_CART", payload: response?.data?.cart })
@@ -176,6 +224,19 @@ export const DataProvider = ({ children }) => {
 
     }
 
+    const deleteCart = async () => {
+        try {
+            const response = await axios.delete('/api/user/cart/', {
+                headers: {
+                    authorization: token,
+                },
+            });
+            dispatch({ type: "DELETE_CART", payload: response?.data?.cart })
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
 
 
     const isProductInWishlist = (product) => {
@@ -190,39 +251,42 @@ export const DataProvider = ({ children }) => {
     }
 
     const handleAddToWishlist = async (product) => {
-        try {
-            const response = await axios.post('/api/user/wishlist',
-                {
-                    product,
-                },
-                {
-                    headers: {
-                        authorization: encodedToken,
+        if (token) {
+            try {
+                const response = await axios.post('/api/user/wishlist',
+                    {
+                        product,
                     },
-                }
+                    {
+                        headers: {
+                            authorization: token,
+                        },
+                    }
 
-            );
-            dispatch({ type: "ADD_TO_WISHLIST", payload: response?.data?.wishlist })
-            toast.success('Added to Wishlist!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
-        } catch (e) {
-            console.error(e);
+                );
+                dispatch({ type: "ADD_TO_WISHLIST", payload: response?.data?.wishlist })
+                toast.success('Added to Wishlist!', {
+                    position: "top-right",
+                    autoClose: 5000,
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: "light",
+                });
+            } catch (e) {
+                console.error(e);
+            }
         }
+
     }
 
     const handleRemoveFromWishlist = async (product) => {
         try {
             const response = await axios.delete(`/api/user/wishlist/${product._id}`, {
                 headers: {
-                    authorization: encodedToken,
+                    authorization: token,
                 },
             });
             dispatch({ type: "UPDATE_WISHLIST", payload: response?.data?.wishlist })
@@ -265,7 +329,7 @@ export const DataProvider = ({ children }) => {
         try {
             const response = await axios.delete(`/api/user/cart/${product?._id}`, {
                 headers: {
-                    authorization: encodedToken,
+                    authorization: token,
                 },
             });
             dispatch({ type: "SET_WISHLIST", payload: { wishlist: [...state?.wishlist, product], cart: response?.data?.cart } })
@@ -305,7 +369,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     headers: {
-                        authorization: encodedToken,
+                        authorization: token,
                     },
                 }
             )
@@ -325,7 +389,7 @@ export const DataProvider = ({ children }) => {
                 },
                 {
                     headers: {
-                        authorization: encodedToken,
+                        authorization: token,
                     },
                 }
             )
@@ -382,8 +446,9 @@ export const DataProvider = ({ children }) => {
     }
 
     const checkoutClickHandler = (totalPrice, totalDiscount, totalAmount) => {
-        dispatch({ type: "SET_ORDER_SUMMARY", payload: { price: totalPrice, discount: totalDiscount, amount: totalAmount, coupon: couponValue } })
         navigate("/checkout")
+        dispatch({ type: "SET_ORDER_SUMMARY", payload: { price: totalPrice, discount: totalDiscount, amount: totalAmount, coupon: couponValue } })
+
     }
 
     const handlePlaceOrderClick = () => {
@@ -391,8 +456,8 @@ export const DataProvider = ({ children }) => {
             navigate("/products")
         }, 2000);
         navigate("/place-order");
-
-
+        clearCart();
+        deleteCart();
     }
 
     useEffect(() => {
@@ -401,12 +466,12 @@ export const DataProvider = ({ children }) => {
                 if (token) {
                     const wishlistResponse = await axios.get('/api/user/wishlist', {
                         headers: {
-                            authorization: encodedToken,
+                            authorization: token,
                         },
                     })
                     const cartResponse = await axios.get('/api/user/cart', {
                         headers: {
-                            authorization: encodedToken,
+                            authorization: token,
                         },
                     })
                     dispatch({ type: "SET_INITIAL_WISHLIST", payload: wishlistResponse?.data?.wishlist });
@@ -419,17 +484,17 @@ export const DataProvider = ({ children }) => {
 
         }
         getData();
-        !token && clearWishlistAndCart();
+        !token && clearWishlist();
+        !token && clearCart();
         !token && clearFilterHandler();
         token && getWishlistAndCart();
-    }, [token, encodedToken])
+    }, [token])
 
 
     const calculatePercentOff = (discountedPrice, originalPrice) => Math.floor(((originalPrice - discountedPrice) * 100) / originalPrice)
     const calculateTotalPrice = (cart) => cart.reduce((acc, curr) => acc + (curr?.qty * curr?.originalPrice), 0)
     const calculateTotalDiscount = (cart) => cart.reduce((acc, curr) => acc + curr?.qty * (curr?.originalPrice - curr?.price), 0)
 
-    // console.log(state);
     return (
         <>
             <DataContext.Provider value={{
@@ -461,9 +526,13 @@ export const DataProvider = ({ children }) => {
                 checkoutClickHandler,
                 setDeliveryAddress,
                 handlePlaceOrderClick,
+                changeTitle,
+                addressInput, setAddressInput,
                 deliveryAddress,
                 couponValue,
                 couponModal,
+                addressModal, setAddressModal,
+                addresses, setUserAddresses,
                 loader,
                 token, user,
                 products: searchedProducts,

@@ -1,14 +1,17 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import "./ProductPage.css";
 export const ProductPage = () => {
-    const { productDetail } = useContext(DataContext);
+    const { productDetail, changeTitle } = useContext(DataContext);
+    useEffect(() => {
+        changeTitle(productDetail?.name)
+    }, [])
     return (
         <>
             <h1>Product Page</h1>
             <div className="product-card-container">
                 <div className="product-image">
-                    <img src={productDetail?.img} alt="book-cover-page"/>
+                    <img src={productDetail?.img} alt="book-cover-page" />
                 </div>
                 <div className="product-details">
                     <div className="product-details-header">
@@ -19,7 +22,7 @@ export const ProductPage = () => {
                     <div className="product-details-tags">
                         <p>Fastest Delivery</p>
                         <p>Inclusive of All Taxes</p>
-                        <p>Cash On Delivery</p> 
+                        <p>Cash On Delivery</p>
                     </div>
                     <div className="product-details-info">
                         <p>Author: {productDetail?.author}</p>

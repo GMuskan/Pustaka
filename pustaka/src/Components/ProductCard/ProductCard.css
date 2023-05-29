@@ -1,6 +1,6 @@
 .productCard{
-    height: 400px;
-    width: 200px;
+    height: 435px;
+    width: 250px;
     border: 1px solid white;
     display: flex;
     flex-direction: column;
@@ -36,9 +36,29 @@
 
 .productCard .productDescription{
     display: flex;
+    flex-direction: column;
     justify-content: space-evenly;
     line-height: 2px;
     text-align: left;
+}
+
+ .productCard .productDescription .product-author-rating{
+    display: flex;
+    justify-content: space-around;
+    
+ }
+
+ .productCard .productDescription .product-desc-details {
+     margin-left: 25px;
+ }
+
+.productCard .product-desc-price{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 8px;
+    position: relative;
+    top: -25px;
 }
 
 .productCard .productDescription .productName {
@@ -54,7 +74,7 @@
     color: rgb(167, 162, 162);
 }
 
-.productCard .productDescription .originalPrice {
+.productCard .product-desc-price .originalPrice {
     font-weight: light;
     color: rgb(167, 162, 162);
     text-decoration: line-through;
@@ -79,6 +99,8 @@
     background-color: #007bb5;
     color: white;
     max-width: 100%;
+    position: relative;
+    top: -25px;
 }
 
 .productCard .btn-addToCart:hover {
@@ -93,9 +115,54 @@
    cursor: pointer;
 }
 
-@media (min-width: 768px){
+@media (max-width: 768px){
     .productCard{
-        width: 280px;
+        max-width: 200px;
+        height: max-content;
+        
+    }
+
+    .productCard img {
+        width: 100px;
+        height: 150px;
+        margin-left: 1rem;
+        margin-right: 0.5rem;
+    }
+
+    .productCard .productDescription {
+        display: flex;
+        justify-content: space-evenly;
+        line-height: 5px;
+        text-align: left;
+    }
+
+    .productCard .product-desc-details{
+        display: flex;
+        flex-direction: column;
+        line-height: 0.5px;
+    }
+
+    .productCard .productRating {
+        background-color: #20aa20;
+        color: white;
+        padding: 4px;
+        margin: 20px;
+        height: 3vh;
+        width: fit-content;
+        border-radius: 5px;
+    }
+
+    .productCard .btn-addToCart {
+        margin: 0.5rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem;
+        border-radius: 10px;
+        border: none;
+        background-color: #007bb5;
+        color: white;
+        max-width: 100%;
+        position: relative;
+        top: 0px;
     }
 }
 

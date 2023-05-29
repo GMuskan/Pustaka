@@ -35,16 +35,31 @@ export const ProductCard = ({ product }) => {
                     </button>
                 </div>
                 <div className="productDescription">
-                    <div>
+                    <div className="product-desc-details">
                         <p className="productName">{product?.name}</p>
-                        <p className="productAuthor">{product?.author}</p>
-                        <p className="productAuthor">{product?.category}</p>
-                        <p className="productPrice"><span>₹{product?.price}{"  "}</span><span className="originalPrice">{" "}Rs. {product?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(product?.price, product?.originalPrice)}%OFF)</span></p>
                     </div>
-                    <div className="productRating">
+                    <div className="product-author-rating">
+                        <div>
+                            <p className="productAuthor">{product?.author}</p>
+                            <p className="productAuthor">{product?.category}</p>
+                        </div>
+                        <div className="productRating">
+                            {product?.rating}
+                            <i className="fa fa-star" aria-hidden="true"></i>
+                        </div>
+                    </div>
+
+                        {/* <div className="productName">
+                        </div> */}
+                        
+                    {/* </div> */}
+                    {/* <div className="productRating">
                         {product?.rating}
                         <i className="fa fa-star" aria-hidden="true"></i>
-                    </div>
+                    </div> */}
+                </div>
+                <div className="product-desc-price">
+                    <p className="productPrice"><span>₹{product?.price}{"  "}</span><span className="originalPrice">{" "}Rs. {product?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(product?.price, product?.originalPrice)}%OFF)</span></p>
                 </div>
                 <button className="btn-addToCart" onClick={() => addToCartHandler(product)}>
                     <i className="fa fa-shopping-cart" aria-hidden="true"></i>{" "}

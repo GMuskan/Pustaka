@@ -82,7 +82,8 @@
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
     padding: 1rem;
     position: relative;
-    height: fit-content;    
+    height: fit-content;  
+    margin-bottom: 32px;  
 }
 
 .coupon{

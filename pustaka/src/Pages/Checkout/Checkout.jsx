@@ -23,7 +23,7 @@ export const Checkout = () => {
                             <button className="btn-address" onClick={() => setAddressModal(true)}>Add Address</button>
                         </div>
                         <div className="order-summary-section">
-                            <h1>Order Summary</h1>
+                            {/* <h1>Order Summary</h1> */}
                             <OrderSummary />
                         </div>
                     </div>

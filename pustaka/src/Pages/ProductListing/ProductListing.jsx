@@ -12,7 +12,7 @@ export const ProductListing = () => {
 
     useEffect(() => {
         changeTitle("Products")
-    }, [])
+    }, [changeTitle])
     return (
         <>
             <div className="product-listing-page">

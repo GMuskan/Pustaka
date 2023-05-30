@@ -5,7 +5,7 @@ export const Wishlist = () => {
     const { handleMoveToCart, handleRemoveFromWishlist, isProductInCart, wishlist, calculatePercentOff, changeTitle } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Wishlist")
-    }, [])
+    }, [changeTitle])
     return (
         <>
             <h1>My Wishlist</h1>

@@ -5,7 +5,7 @@ export const OrderSummary = () => {
     const { orderSummary, cart, deliveryAddress, handlePlaceOrderClick, changeTitle } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Order Summary")
-    }, [])
+    }, [changeTitle])
     return (
         <>
             <div className="order-summary">

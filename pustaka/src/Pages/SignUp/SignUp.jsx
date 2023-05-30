@@ -24,7 +24,7 @@ export const SignUp = () => {
     }
     useEffect(() => {
         changeTitle("SignUp")
-    }, [])
+    }, [changeTitle])
     
     return (
         <>

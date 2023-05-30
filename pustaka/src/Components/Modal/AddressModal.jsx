@@ -1,4 +1,4 @@
-import { useContext, useState } from "react"
+import { useContext } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./AddressModal.css";
 import { v4 as uuid } from "uuid";

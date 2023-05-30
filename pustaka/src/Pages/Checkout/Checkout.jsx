@@ -8,7 +8,7 @@ export const Checkout = () => {
     const { changeTitle, cart, addressModal, setAddressModal, addresses } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Checkout")
-    }, [])
+    }, [changeTitle])
 
     return (
         <>

@@ -3,10 +3,11 @@ import { DataContext } from "../../Contexts/DataContext";
 import "./ProductPage.css";
 export const ProductPage = () => {
     const { productDetail, changeTitle } = useContext(DataContext);
+
     useEffect(() => {
         changeTitle(productDetail?.name)
-    }, [])
-    console.log(Object.keys(productDetail))
+    }, [productDetail?.name, changeTitle])
+
     return (
         <>
             {Object.keys(productDetail)?.length &&

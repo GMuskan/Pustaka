@@ -5,7 +5,7 @@ export const PlaceOrder = () => {
     const { changeTitle } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Order Placed")
-    }, [])
+    }, [changeTitle])
     return (
         <>
             <div className="place-order-icon">

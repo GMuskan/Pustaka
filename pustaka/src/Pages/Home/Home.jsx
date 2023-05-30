@@ -19,7 +19,7 @@ export const Home = () => {
     const { categories, changeTitle, categoryClickHandler } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Home")
-    }, [])
+    }, [changeTitle])
 
     return (
         <>

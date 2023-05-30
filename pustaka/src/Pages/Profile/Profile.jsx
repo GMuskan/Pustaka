@@ -5,7 +5,7 @@ export const Profile = () => {
     const { changeTitle, user } = useContext(DataContext);
     useEffect(() => {
         changeTitle("My Profile")
-    }, [])
+    }, [changeTitle])
 
     return (
         <>

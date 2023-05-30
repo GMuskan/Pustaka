@@ -28,7 +28,7 @@ export const Login = () => {
 
     useEffect(() => {
         changeTitle("Login")
-    }, [])
+    }, [changeTitle])
 
     const handleShowHidePassword = () => {
         if (passwordType === "password") {

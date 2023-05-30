@@ -129,11 +129,48 @@ export const DataProvider = ({ children }) => {
                         'Content-type': 'application/json; charset=UTF-8',
                     },
                 })
-                const { foundUser, encodedToken } = await response.json();
-                localStorage.setItem("user", JSON.stringify({ user: foundUser }));
-                setUser(foundUser);
-                localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
-                setToken(encodedToken);
+                if (response?.status === 200) {
+                    const { foundUser, encodedToken } = await response.json();
+                    localStorage.setItem("user", JSON.stringify({ user: foundUser }));
+                    setUser(foundUser);
+                    localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
+                    setToken(encodedToken);
+                    toast.success('Logged In Successfully!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                } else if (response?.status === 401) {
+                    navigate("/login")
+                    toast.error('The credentials you entered are invalid!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                } else {
+                    navigate("/login")
+                    toast.error('The email you entered is not Registered!', {
+                        position: "top-right",
+                        autoClose: 5000,
+                        hideProgressBar: false,
+                        closeOnClick: true,
+                        pauseOnHover: true,
+                        draggable: true,
+                        progress: undefined,
+                        theme: "light",
+                    })
+                }
+
 
             } catch (e) {
                 console.error(e)
@@ -148,6 +185,16 @@ export const DataProvider = ({ children }) => {
         setToken("");
         setUser();
         setUserAddresses(UserAddress)
+        toast.success('Logged Out Successfully!', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+        })
         navigate("/products");
 
     }
@@ -288,6 +335,8 @@ export const DataProvider = ({ children }) => {
             } catch (e) {
                 console.error(e);
             }
+        } else {
+            navigate("/login");
         }
 
     }
@@ -319,16 +368,6 @@ export const DataProvider = ({ children }) => {
     const handleMoveToCart = async (product) => {
         try {
             handleAddToCart(product);
-            toast.success('Added To Cart!', {
-                position: "top-right",
-                autoClose: 5000,
-                hideProgressBar: false,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-                progress: undefined,
-                theme: "light",
-            });
         } catch (e) {
             console.error(e);
         }

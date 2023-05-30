@@ -11,6 +11,11 @@ nav .appName{
   font-size: 2rem;
   color: white
 }
+
+.user-name{
+  font-size: 2rem;
+  color: white
+}
   
 .search-container {
   display: flex;

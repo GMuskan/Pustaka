@@ -6,7 +6,8 @@ import { DataContext } from "../../Contexts/DataContext";
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { searchProductHandler, wishlist, cart, token, logoutClickHandler, search } = useContext(DataContext);
+    const { searchProductHandler, wishlist, cart, token, logoutClickHandler, search, user } = useContext(DataContext);
+    console.log(user?.firstName, user?.lastName);
     return (
         <>
             <nav>
@@ -45,6 +46,11 @@ export const Header = () => {
                         <i className="fa fa-user" aria-hidden="true"></i>
                     </button>
                 </div>
+                {user &&
+                    <div className="user-name">
+                        Welcome, {user?.firstName}!
+                    </div>
+                }
                 <div className="logout-btn">
                     <button className="btn-user" onClick={logoutClickHandler}>
                         <i className="fa fa-sign-out" aria-hidden="true"></i>

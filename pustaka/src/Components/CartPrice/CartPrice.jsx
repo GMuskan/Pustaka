@@ -60,7 +60,7 @@ export const CartPrice = ({ cart }) => {
                 <h4>₹{totalAmout}</h4>
             </div>
             <hr />
-            <div className="discount-statement">You will save ₹{savedMoney} on this order</div>
+            <div className="discount-statement">You will save ₹{savedMoney.toFixed(2)} on this order</div>
             <div>
                 <button className="btn-checkout" onClick={() => checkoutClickHandler(totalPrice, totalDiscount, totalAmout, cart)}>Checkout</button>
             </div>

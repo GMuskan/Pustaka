@@ -185,26 +185,15 @@ export const DataProvider = ({ children }) => {
         setToken("");
         setUser();
         setUserAddresses(UserAddress)
-        toast.success('Logged Out Successfully!', {
-            position: "top-right",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-        })
         navigate("/products");
 
     }
 
-    const categoryClickHandler = async (categoryName, categoryId) => {
+    const categoryClickHandler = async (categoryId) => {
         dispatch({ type: "RESET_FILTERS", payload: [] })
         try {
             const response = await axios.get(`/api/categories/${categoryId}`)
-            console.log(response?.data?.category);
-            dispatch({ type: "SET_CATEGORY_FILTER", payload: categoryName })
+            dispatch({ type: "SET_CATEGORY_FILTER", payload: response?.data?.category?.categoryName })
             navigate("/products");
         } catch (e) {
             console.error(e)

@@ -7,7 +7,6 @@ import { DataContext } from "../../Contexts/DataContext";
 export const Header = () => {
     const navigate = useNavigate();
     const { searchProductHandler, wishlist, cart, token, logoutClickHandler, search, user } = useContext(DataContext);
-    console.log(user?.firstName, user?.lastName);
     return (
         <>
             <nav>

@@ -37,7 +37,7 @@ export const Home = () => {
                     <p>There are many categories of books available at Pustaka. Choose your favorite one now.</p>
                     <div className="book-categories">
                         {categories && categories.map(({ _id, categoryName, description }) => (
-                            <button key={_id} onClick={() => categoryClickHandler(categoryName, _id)}>
+                            <button key={_id} onClick={() => categoryClickHandler(_id)}>
                                 <h3>{categoryName}</h3>
                                 <p>{description}</p>
                             </button>

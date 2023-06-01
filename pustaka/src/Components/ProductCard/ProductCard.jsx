@@ -48,15 +48,6 @@ export const ProductCard = ({ product }) => {
                             <i className="fa fa-star" aria-hidden="true"></i>
                         </div>
                     </div>
-
-                        {/* <div className="productName">
-                        </div> */}
-                        
-                    {/* </div> */}
-                    {/* <div className="productRating">
-                        {product?.rating}
-                        <i className="fa fa-star" aria-hidden="true"></i>
-                    </div> */}
                 </div>
                 <div className="product-desc-price">
                     <p className="productPrice"><span>₹{product?.price}{"  "}</span><span className="originalPrice">{" "}Rs. {product?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(product?.price, product?.originalPrice)}%OFF)</span></p>

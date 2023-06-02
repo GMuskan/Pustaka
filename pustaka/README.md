@@ -1,3 +1,51 @@
-## E-Commerce Backend
+Ecommerce - Pustaka
 
-This folder contains the Mock Backend created for E-Commerce App. It contains different API end-points and database configuration for building E-Commerce; so that you can focus on building Frontend.
+How to install and run locally ?
+
+$ git clone https://github.com/arjunrajput18/speedyBuyWeb.git
+$ cd speedyBuyWeb
+$ npm install
+$ npm start
+
+Features-
+
+Home Page
+
+Product Listing Page
+
+Single Product Page
+
+Filters by:
+
+Price
+Category
+Ratings
+Search
+
+Wishlist Management
+
+Cart Management
+
+Search
+
+Loading & Alerts
+
+Authentication:
+
+Sign-up
+Login
+Logout
+Address Management
+
+Checkout
+
+Responsive
+
+Toasts
+
+Built With-
+React Js
+React Context API + useReducer
+React Router v6
+Vanilla CSS
+MockBee for backend

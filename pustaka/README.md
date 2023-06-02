@@ -2,7 +2,7 @@ Ecommerce - Pustaka
 
  How to install and run locally ?
 
-    1.  $ git clone https://github.com/GMuskan/Pustaka.git
+    1. $ git clone https://github.com/GMuskan/Pustaka.git
 
     2. $ cd pustaka
 

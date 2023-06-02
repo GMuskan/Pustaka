@@ -1,4 +1,4 @@
-![app-icon](pustaka\src\Assets\app-icon.png)
+![app-icon](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTTmSEOM679CGNOz7m8xWpiv-AxCAiXu0Yi3w&usqp=CAU)
 
 Ecommerce - Pustaka
 

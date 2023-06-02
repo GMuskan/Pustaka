@@ -1,3 +1,5 @@
+![app-icon](pustaka\src\Assets\app-icon.png)
+
 Ecommerce - Pustaka
 
  How to install and run locally ?

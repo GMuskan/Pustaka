@@ -1,16 +1,17 @@
-Ecommerce - Pustaka
+# Pustaka
+Online Book Store
 
- How to install and run locally ?
+How to install and run locally ?
 
-    1. $ git clone https://github.com/GMuskan/Pustaka.git
+    1.  $ git clone https://github.com/GMuskan/Pustaka.git
 
     2. $ cd pustaka
 
     3.  $ npm install
 
     4.  $ npm start
-
- Features-
+    
+Features-
 
     . Home Page
 
@@ -29,24 +30,24 @@ Ecommerce - Pustaka
 
     . Cart Management
 
-     . Search
+    . Search
 
-      . Loading & Alerts
+    . Loading & Alerts
 
-     . Authentication:
+    . Authentication:
        - Sign-up
        - Login
        - Logout
 
-     . Address Management
+    . Address Management
 
     . Checkout
 
     . Responsive
 
     . Toasts
-    
- Built With: 
+
+Built With:
 
     . React Js
 

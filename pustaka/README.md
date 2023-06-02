@@ -2,10 +2,10 @@ Ecommerce - Pustaka
 
 -> How to install and run locally ?
 
-  $ git clone https://github.com/arjunrajput18/speedyBuyWeb.git
-  $ cd speedyBuyWeb
-  $ npm install
-  $ npm start
+   $ git clone https://github.com/GMuskan/Pustaka.git
+   $ cd pustaka
+   $ npm install
+   $ npm start
 
 -> Features-
 
@@ -22,30 +22,30 @@ Ecommerce - Pustaka
         - Ratings
         - Search
 
-   . Wishlist Management
+    . Wishlist Management
 
-   . Cart Management
+    . Cart Management
 
-   . Search
+     . Search
 
-   . Loading & Alerts
+      . Loading & Alerts
 
-   . Authentication:
+     . Authentication:
        - Sign-up
        - Login
        - Logout
 
-   . Address Management
+     . Address Management
 
-   . Checkout
+    . Checkout
 
-   . Responsive
+    . Responsive
 
-   . Toasts
-
+    . Toasts
+    
 -> Built With: 
-    - React Js
-    - React Context API + useReducer
-    - React Router v6
-    - Vanilla CSS
-    - MockBee for backend
+    . React Js
+    . React Context API + useReducer
+    . React Router v6
+    . Vanilla CSS
+    . MockBee for backend

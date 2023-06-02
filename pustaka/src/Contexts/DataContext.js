@@ -170,13 +170,10 @@ export const DataProvider = ({ children }) => {
                         theme: "light",
                     })
                 }
-
-
             } catch (e) {
                 console.error(e)
             }
         }
-
     }
 
     const logoutClickHandler = () => {
@@ -200,8 +197,6 @@ export const DataProvider = ({ children }) => {
         }
     }
 
-
-
     const isProductInCart = (product) => {
         if (token) {
             const foundProduct = state?.cart?.find(item => item?._id === product?._id)
@@ -212,6 +207,7 @@ export const DataProvider = ({ children }) => {
             }
         }
     }
+
     const handleAddToCart = async (product) => {
         if (token) {
             try {
@@ -243,7 +239,6 @@ export const DataProvider = ({ children }) => {
         } else {
             navigate("/login")
         }
-
     }
 
     const handleRemoveFromCart = async (product) => {
@@ -282,8 +277,6 @@ export const DataProvider = ({ children }) => {
             console.error(err);
         }
     }
-
-
 
     const isProductInWishlist = (product) => {
         if (token) {
@@ -327,7 +320,6 @@ export const DataProvider = ({ children }) => {
         } else {
             navigate("/login");
         }
-
     }
 
     const handleRemoveFromWishlist = async (product) => {
@@ -351,7 +343,6 @@ export const DataProvider = ({ children }) => {
         } catch (err) {
             console.error(err);
         }
-
     }
 
     const handleMoveToCart = async (product) => {
@@ -394,7 +385,6 @@ export const DataProvider = ({ children }) => {
         } catch (e) {
             console.error(e)
         }
-
     }
 
     const increaseProductQuantity = async (productId) => {
@@ -436,7 +426,6 @@ export const DataProvider = ({ children }) => {
             console.error(e)
         }
     }
-
 
     const sortByPrice = (e) => {
         dispatch({ type: "SET_PRICE_FILTER", payload: e.target.value })
@@ -486,7 +475,6 @@ export const DataProvider = ({ children }) => {
     const checkoutClickHandler = (totalPrice, totalDiscount, totalAmount) => {
         navigate("/checkout")
         dispatch({ type: "SET_ORDER_SUMMARY", payload: { price: totalPrice, discount: totalDiscount, amount: totalAmount, coupon: couponValue } })
-
     }
 
     const handlePlaceOrderClick = () => {
@@ -527,7 +515,6 @@ export const DataProvider = ({ children }) => {
         !token && clearFilterHandler();
         token && getWishlistAndCart();
     }, [token])
-
 
     const calculatePercentOff = (discountedPrice, originalPrice) => Math.floor(((originalPrice - discountedPrice) * 100) / originalPrice)
     const calculateTotalPrice = (cart) => cart.reduce((acc, curr) => acc + (curr?.qty * curr?.originalPrice), 0)

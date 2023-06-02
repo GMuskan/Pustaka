@@ -3,7 +3,7 @@ import { DataContext } from "../../Contexts/DataContext"
 import { ProductCard } from "../../Components/ProductCard/ProductCard";
 import "./ProductListing.css";
 import { SideBar } from "../../Components/SideBar/SideBar";
-import { RotatingLines } from "react-loader-spinner"
+import { Loader } from "../../Components/Loader/Loader";
 
 
 export const ProductListing = () => {
@@ -19,14 +19,7 @@ export const ProductListing = () => {
 
                 <SideBar />
                 <div className="list-of-products">
-                    {loader ? <RotatingLines
-                        strokeColor="grey"
-                        strokeWidth="5"
-                        animationDuration="0.75"
-                        width="96"
-                        margin="auto"
-                        visible={true}
-                    /> : ""}
+                    {loader && <Loader />}
                     {!loader && <>
                         <div className="total-products">
                             <h3>Showing All products ({products?.length})</h3>

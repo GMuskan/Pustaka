@@ -20,15 +20,24 @@ export const ProductListing = () => {
                 <SideBar />
                 <div className="list-of-products">
                     {loader && <Loader />}
-                    {!loader && <>
-                        <div className="total-products">
-                            <h3>Showing All products ({products?.length})</h3>
-                        </div>
-                        <div className="cards-section">
-                            {products?.length ? products.map((product) => (
-                                <ProductCard key={product?._id} product={product} />
-                            )) : <h1>No Products Available</h1>}
-                        </div></>}
+                    {!loader &&
+                        <>
+                            <div className="total-products">
+                                <h3>Showing All products ({products?.length})</h3>
+                            </div>
+                            <div className="cards-section">
+                                {
+                                    products?.length
+                                        ? products.map((product) => (
+                                            <ProductCard key={product?._id} product={product} />
+                                        ))
+                                        : <div className="no-products">
+                                            <h1>No Products Available</h1>
+                                        </div>
+                                }
+                            </div>
+                        </>
+                    }
                 </div>
             </div>
         </>

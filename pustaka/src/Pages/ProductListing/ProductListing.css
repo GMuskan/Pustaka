@@ -7,7 +7,6 @@
 .list-of-products{
     display: flex;
     flex-direction: column;
-    margin: auto;
 }
 .cards-section{
     display: grid;
@@ -16,6 +15,10 @@
     grid-row-gap: 16px;
 }
 
+/* .no-products{
+    margin: auto;
+}
+ */
 
 @media (min-width: 768px){
     .cards-section {

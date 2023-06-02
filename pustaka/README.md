@@ -9,44 +9,43 @@ Ecommerce - Pustaka
 
 -> Features-
 
-  . Home Page
+    . Home Page
 
-  . Product Listing Page
+    . Product Listing Page
 
-  . Single Product Page
+    . Single Product Page
 
-  . Filters by:
+    . Filters by:
 
-    - Price
-    - Category
-    - Ratings
-    - Search
+        - Price
+        - Category
+        - Ratings
+        - Search
 
- . Wishlist Management
+   . Wishlist Management
 
- . Cart Management
+   . Cart Management
 
- . Search
+   . Search
 
- . Loading & Alerts
+   . Loading & Alerts
 
- . Authentication:
+   . Authentication:
+       - Sign-up
+       - Login
+       - Logout
 
-   - Sign-up
-   - Login
-   - Logout
-   - 
- . Address Management
+   . Address Management
 
- . Checkout
+   . Checkout
 
- . Responsive
+   . Responsive
 
- . Toasts
+   . Toasts
 
--> Built With-
-  . React Js
-  . React Context API + useReducer
-  . React Router v6
-  . Vanilla CSS
-  . MockBee for backend
+-> Built With: 
+    - React Js
+    - React Context API + useReducer
+    - React Router v6
+    - Vanilla CSS
+    - MockBee for backend

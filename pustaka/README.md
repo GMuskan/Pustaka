@@ -1,6 +1,6 @@
 Ecommerce - Pustaka
 
--> How to install and run locally ?
+ How to install and run locally ?
 
     1.  $ git clone https://github.com/GMuskan/Pustaka.git
 
@@ -10,7 +10,7 @@ Ecommerce - Pustaka
 
     4.  $ npm start
 
--> Features-
+ Features-
 
     . Home Page
 
@@ -46,7 +46,7 @@ Ecommerce - Pustaka
 
     . Toasts
     
--> Built With: 
+ Built With: 
 
     . React Js
 

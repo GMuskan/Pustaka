@@ -1,8 +1,18 @@
 import { useContext, useEffect } from "react"
 import "./Wishlist.css"
 import { DataContext } from "../../Contexts/DataContext";
+import { handleMoveToCart, handleRemoveFromWishlist } from "../../Services/WishlistService";
+import { isProductInCart } from "../../Services/CartService";
+import { AuthContext } from "../../Contexts/AuthContext";
 export const Wishlist = () => {
-    const { handleMoveToCart, handleRemoveFromWishlist, isProductInCart, wishlist, calculatePercentOff, changeTitle } = useContext(DataContext);
+
+    const { authState } = useContext(AuthContext);
+
+    const { state, dispatch } = useContext(DataContext);
+
+    const token = authState?.token;
+
+    const { wishlist, calculatePercentOff, changeTitle } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Wishlist")
     }, [changeTitle])
@@ -11,26 +21,26 @@ export const Wishlist = () => {
             <h1>My Wishlist</h1>
             {wishlist?.length ?
                 wishlist.map((wishlistItem) => (
-                <div key={wishlistItem?._id}>
-                    <div className="wishlistCard" key={wishlistItem._id}>
-                        <div className="productImage">
-                            <img src={wishlistItem.img} alt="book-cover" />
-                        </div>
-                        <div className="productDescription">
-                            <div>
-                                <p className="productName">{wishlistItem.name}</p>
-                                <p className="productAuthor">{wishlistItem.author}</p>
-                                <p className="productPrice"><span>₹{wishlistItem.price}{"  "}</span><span className="originalPrice">{" "}Rs. {wishlistItem.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(wishlistItem?.price, wishlistItem?.originalPrice)}%OFF)</span></p>
+                    <div key={wishlistItem?._id}>
+                        <div className="wishlistCard" key={wishlistItem._id}>
+                            <div className="productImage">
+                                <img src={wishlistItem.img} alt="book-cover" />
                             </div>
-                            <div>
-                                <button className="btn-moveToCart" style={{ backgroundColor: isProductInCart(wishlistItem) ? "lightgray" : "#007bb5" }} disabled={isProductInCart(wishlistItem)} onClick={() => handleMoveToCart(wishlistItem)}>{isProductInCart(wishlistItem) ? "Item In Cart" : "Add To Cart"}</button>
-                                <button className="btn-remove" onClick={() => handleRemoveFromWishlist(wishlistItem)}>Remove</button>
+                            <div className="productDescription">
+                                <div>
+                                    <p className="productName">{wishlistItem.name}</p>
+                                    <p className="productAuthor">{wishlistItem.author}</p>
+                                    <p className="productPrice"><span>₹{wishlistItem.price}{"  "}</span><span className="originalPrice">{" "}Rs. {wishlistItem.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(wishlistItem?.price, wishlistItem?.originalPrice)}%OFF)</span></p>
+                                </div>
+                                <div>
+                                    <button className="btn-moveToCart" style={{ backgroundColor: isProductInCart(wishlistItem, token, state) ? "lightgray" : "#007bb5" }} disabled={isProductInCart(wishlistItem, token, state)} onClick={() => handleMoveToCart(wishlistItem, token, dispatch)}>{isProductInCart(wishlistItem, token, state) ? "Item In Cart" : "Add To Cart"}</button>
+                                    <button className="btn-remove" onClick={() => handleRemoveFromWishlist(wishlistItem, token, dispatch)}>Remove</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-            )) : <h2>Your Wishlist is Empty!</h2>}
+                )) : <h2>Your Wishlist is Empty!</h2>}
         </>
     )
 }

@@ -1,11 +1,14 @@
 import "./Checkout.css";
 import { AddressCard } from "../../Components/AddressCard/AddressCard";
-import { OrderSummary } from "../../Components/OrderSummary/OrderSummary";
+import { OrderSummary } from "../OrderSummary/OrderSummary";
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import { AddressModal } from "../../Components/Modal/AddressModal";
+import { AuthContext } from "../../Contexts/AuthContext";
 export const Checkout = () => {
-    const { changeTitle, cart, addressModal, setAddressModal, addresses } = useContext(DataContext);
+    const { changeTitle, cart } = useContext(DataContext);
+    const { addressModal, setAddressModal } = useContext(AuthContext);
+    const { addresses } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("Checkout")
     }, [changeTitle])

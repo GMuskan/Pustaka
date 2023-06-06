@@ -1,8 +1,10 @@
 import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./OrderSummary.css"
+import { AuthContext } from "../../Contexts/AuthContext";
 export const OrderSummary = () => {
-    const { orderSummary, cart, deliveryAddress, handlePlaceOrderClick, changeTitle } = useContext(DataContext);
+    const { orderSummary, cart, handlePlaceOrderClick, changeTitle } = useContext(DataContext);
+    const { deliveryAddress } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("Order Summary")
     }, [changeTitle])

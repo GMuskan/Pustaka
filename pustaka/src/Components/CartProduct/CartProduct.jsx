@@ -1,14 +1,25 @@
 import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
+import { handleRemoveFromCart, increaseProductQuantity, decreaseProductQuantity, handleMoveToWishlist } from "../../Services/CartService";
+import { isProductInWishlist } from "../../Services/WishlistService";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 export const CartProduct = ({ cartItem }) => {
-    const { handleMoveToWishlist, handleRemoveFromCart, isProductInWishlist, increaseProductQuantity, cart, decreaseProductQuantity, calculatePercentOff } = useContext(DataContext);
+
+    const { authState } = useContext(AuthContext);
+
+    const { state, dispatch } = useContext(DataContext);
+
+    const token = authState?.token;
+
+    const { cart, calculatePercentOff } = useContext(DataContext);
+
 
     const checkQuantity = (cartItem) => {
         if (cart.find(item => item._id === cartItem._id).qty > 1) {
-            decreaseProductQuantity(cartItem._id)
+            decreaseProductQuantity(cartItem._id, token, dispatch)
         } else {
-            handleRemoveFromCart(cartItem);
+            handleRemoveFromCart(cartItem, token, dispatch);
         }
     }
     return (
@@ -26,12 +37,12 @@ export const CartProduct = ({ cartItem }) => {
                         <p className="productAuthor">{cartItem?.author}</p>
                         <p className="productPrice"><span>₹{cartItem?.price}{"  "}</span><span className="originalPrice">{" "}₹ {cartItem?.originalPrice}</span><span className="discount">{" "}({calculatePercentOff(cartItem?.price, cartItem?.originalPrice)}%OFF)</span></p>
                     </div>
-                    <div>Quantity: {cartItem.qty}{" "}<button onClick={() => increaseProductQuantity(cartItem?._id)}>+</button>{" "}
+                    <div>Quantity: {cartItem.qty}{" "}<button onClick={() => increaseProductQuantity(cartItem?._id, token, dispatch)}>+</button>{" "}
                         <button onClick={() => checkQuantity(cartItem)}>-</button>
                     </div>
                     <div>
-                        <button className="btn-moveToWishlist" style={{ backgroundColor: isProductInWishlist(cartItem) ? "lightgray" : "#007bb5" }} disabled={isProductInWishlist(cartItem)} onClick={() => handleMoveToWishlist(cartItem)}>{isProductInWishlist(cartItem) ? "Item in Wishlist" : "Move To Wishlist"}</button>
-                        <button className="btn-remove" onClick={() => handleRemoveFromCart(cartItem)}>Remove</button>
+                        <button className="btn-moveToWishlist" style={{ backgroundColor: isProductInWishlist(cartItem, token, state) ? "lightgray" : "#007bb5" }} disabled={isProductInWishlist(cartItem)} onClick={() => handleMoveToWishlist(cartItem, dispatch, token, state)}>{isProductInWishlist(cartItem) ? "Item in Wishlist" : "Move To Wishlist"}</button>
+                        <button className="btn-remove" onClick={() => handleRemoveFromCart(cartItem, token, dispatch)}>Remove</button>
                     </div>
                 </div>
             </div>

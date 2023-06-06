@@ -9,12 +9,4 @@ export const UserAddress = [
         country: "India",
         phoneNumber: "123456789"
     },
-    {
-        id: uuid(),
-        name: "Adarsh Balika",
-        address: "#55, Gange Gauri Bagh Balkeshwar, Agra, Uttar Pradesh.",
-        pincode: "282004",
-        country: "India",
-        phoneNumber: "987654321"
-    }
 ]

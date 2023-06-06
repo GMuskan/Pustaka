@@ -1,9 +1,10 @@
 import { useContext } from "react"
 import "./AddressCard.css"
-import { DataContext } from "../../Contexts/DataContext"
+// import { DataContext } from "../../Contexts/DataContext"
+import { AuthContext } from "../../Contexts/AuthContext";
 
 export const AddressCard = ({ userAddress }) => {
-    const { setDeliveryAddress, setAddressModal, addresses, setUserAddresses, setAddressInput } = useContext(DataContext);
+    const { setDeliveryAddress, setAddressModal, addresses, setUserAddresses, setAddressInput } = useContext(AuthContext);
     const updateAddressHandler = (addressId) => {
         const foundAddress = addresses.find((address) => address.id === addressId)
         setAddressModal(true);

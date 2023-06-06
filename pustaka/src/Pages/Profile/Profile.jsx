@@ -1,8 +1,10 @@
 import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./Profile.css";
+import { AuthContext } from "../../Contexts/AuthContext";
 export const Profile = () => {
-    const { changeTitle, user } = useContext(DataContext);
+    const { changeTitle } = useContext(DataContext);
+    const { authState } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("My Profile")
     }, [changeTitle])
@@ -21,8 +23,8 @@ export const Profile = () => {
                         <h4>Email</h4>
                     </div>
                     <div>
-                        <p>{user?.firstName}{" "}{user?.lastName}</p>
-                        <p>{user?.email}</p>
+                        <p>{authState?.user?.firstName}{" "}{authState?.user?.lastName}</p>
+                        <p>{authState?.user?.email}</p>
                     </div>
                 </div>
             </div>

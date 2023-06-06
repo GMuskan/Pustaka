@@ -7,6 +7,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { DataProvider } from "./Contexts/DataContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { AuthProvider } from "./Contexts/AuthContext";
 
 // Call make Server
 makeServer();
@@ -14,10 +15,21 @@ makeServer();
 ReactDOM.render(
   <React.StrictMode>
     <BrowserRouter>
-      <DataProvider>
-        <App />
-        <ToastContainer className="toast-container" />
-      </DataProvider>
+      <AuthProvider>
+        <DataProvider>
+          <App />
+          <ToastContainer className="toast-container"
+            position="top-right"
+            autoClose={700}
+            hideProgressBar={false}
+            closeOnClick={true}
+            pauseOnHover={true}
+            draggable={true}
+            progress={undefined}
+            theme="light"
+          />
+        </DataProvider>
+      </AuthProvider>
     </BrowserRouter>
   </React.StrictMode>,
   document.getElementById("root")

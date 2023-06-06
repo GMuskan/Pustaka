@@ -1,10 +1,11 @@
 import { useContext } from "react"
-import { DataContext } from "../../Contexts/DataContext"
+// import { DataContext } from "../../Contexts/DataContext"
 import "./AddressModal.css";
 import { v4 as uuid } from "uuid";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 export const AddressModal = () => {
-    const { setAddressModal, setUserAddresses, addressInput, setAddressInput, addresses } = useContext(DataContext);
+    const { setAddressModal, setUserAddresses, addressInput, setAddressInput, addresses } = useContext(AuthContext);
     return (
         <>
             <div className="modal-wrapper">

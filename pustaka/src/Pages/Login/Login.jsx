@@ -2,6 +2,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import "./Login.css";
 import { useContext, useEffect, useState } from "react";
 import { DataContext } from "../../Contexts/DataContext";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 const getActiveStyle = ({ isActive }) => ({
     margin: "1rem 0",
@@ -20,9 +21,10 @@ export const Login = () => {
 
     const [loginForm, setLoginForm] = useState({ email: "test@gmail.com", password: "test" });
 
-    const { handleLoginClick, token, changeTitle } = useContext(DataContext);
+    const { changeTitle } = useContext(DataContext);
+    const { handleLoginClick, authState } = useContext(AuthContext);
 
-    if (token) {
+    if (authState?.token) {
         navigate(location?.state?.from || "/products");
     }
 

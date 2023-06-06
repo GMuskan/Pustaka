@@ -2,21 +2,30 @@ import { useContext } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./ProductCard.css"
 import { useNavigate } from "react-router";
+import { handleAddToCart, isProductInCart } from "../../Services/CartService";
+import { handleAddToWishlist, handleRemoveFromWishlist,isProductInWishlist } from "../../Services/WishlistService";
+import { AuthContext } from "../../Contexts/AuthContext";
 export const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
-    const { handleAddToCart, handleAddToWishlist, handleRemoveFromWishlist, isProductInCart, isProductInWishlist, getProductDetails, calculatePercentOff } = useContext(DataContext);
+    const { authState } = useContext(AuthContext);
 
-    const isInCart = isProductInCart(product);
+    const { state, dispatch } = useContext(DataContext);
+
+    const { getProductDetails, calculatePercentOff } = useContext(DataContext);
+
+    const token = authState?.token;
+
+    const isInCart = isProductInCart(product, token, state);
 
     const addToCartHandler = (product) => {
-        isInCart ? navigate("/cart") : handleAddToCart(product)
+        token ? isInCart ? navigate("/cart") : handleAddToCart(product, token, dispatch) : navigate("/login")
     }
 
-    const isInwishlist = isProductInWishlist(product);
+    const isInwishlist = isProductInWishlist(product, token, state);
 
     const addToWishlistHandler = (product) => {
-        isInwishlist ? handleRemoveFromWishlist(product) : handleAddToWishlist(product)
+        token ? isInwishlist ? handleRemoveFromWishlist(product, token, dispatch) : handleAddToWishlist(product, token, dispatch) : navigate("/login")
     }
 
 

@@ -1,13 +1,13 @@
 import { useContext, useEffect } from "react"
-import { DataContext } from "../../Contexts/DataContext"
 import "./Profile.css";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { changeTitle } from "../../utils/commonUtils";
+
 export const Profile = () => {
-    const { changeTitle } = useContext(DataContext);
     const { authState } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("My Profile")
-    }, [changeTitle])
+    }, [])
 
     return (
         <>

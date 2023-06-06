@@ -2,20 +2,19 @@ import { useContext, useEffect } from "react"
 import "./Wishlist.css"
 import { DataContext } from "../../Contexts/DataContext";
 import { handleMoveToCart, handleRemoveFromWishlist } from "../../Services/WishlistService";
-import { isProductInCart } from "../../Services/CartService";
+import { isProductInCart, changeTitle, calculatePercentOff } from "../../utils/commonUtils";
 import { AuthContext } from "../../Contexts/AuthContext";
 export const Wishlist = () => {
 
     const { authState } = useContext(AuthContext);
 
-    const { state, dispatch } = useContext(DataContext);
+    const { state, dispatch, wishlist } = useContext(DataContext);
 
     const token = authState?.token;
 
-    const { wishlist, calculatePercentOff, changeTitle } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Wishlist")
-    }, [changeTitle])
+    }, [])
     return (
         <>
             <h1>My Wishlist</h1>

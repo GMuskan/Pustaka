@@ -2,17 +2,16 @@ import { useContext } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./ProductCard.css"
 import { useNavigate } from "react-router";
-import { handleAddToCart, isProductInCart } from "../../Services/CartService";
-import { handleAddToWishlist, handleRemoveFromWishlist,isProductInWishlist } from "../../Services/WishlistService";
+import { handleAddToCart } from "../../Services/CartService";
+import { handleAddToWishlist, handleRemoveFromWishlist } from "../../Services/WishlistService";
+import { isProductInCart, isProductInWishlist, calculatePercentOff } from "../../utils/commonUtils";
 import { AuthContext } from "../../Contexts/AuthContext";
 export const ProductCard = ({ product }) => {
     const navigate = useNavigate();
 
     const { authState } = useContext(AuthContext);
 
-    const { state, dispatch } = useContext(DataContext);
-
-    const { getProductDetails, calculatePercentOff } = useContext(DataContext);
+    const { state, dispatch, getProductDetails } = useContext(DataContext);
 
     const token = authState?.token;
 

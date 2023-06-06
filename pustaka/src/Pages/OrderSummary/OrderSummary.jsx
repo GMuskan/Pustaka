@@ -2,12 +2,14 @@ import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./OrderSummary.css"
 import { AuthContext } from "../../Contexts/AuthContext";
+import { changeTitle } from "../../utils/commonUtils";
+
 export const OrderSummary = () => {
-    const { orderSummary, cart, handlePlaceOrderClick, changeTitle } = useContext(DataContext);
+    const { orderSummary, cart, handlePlaceOrderClick } = useContext(DataContext);
     const { deliveryAddress } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("Order Summary")
-    }, [changeTitle])
+    }, [])
     return (
         <>
             <div className="order-summary">

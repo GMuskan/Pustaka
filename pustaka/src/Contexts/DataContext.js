@@ -3,8 +3,8 @@ import * as axios from 'axios';
 import { DataReducer, initialState } from "../Reducers/dataReducer";
 import { useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
-import { deleteCart, clearCart } from "../Services/CartService";
-import { clearWishlist } from "../Services/WishlistService";
+import { deleteCart } from "../Services/CartService";
+import { clearCart, clearWishlist } from "../utils/commonUtils";
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
@@ -17,10 +17,8 @@ export const DataProvider = ({ children }) => {
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
 
     const { authState } = useContext(AuthContext);
-    
-    const token = authState?.token;
 
-    const changeTitle = (title) => (document.title = `${title} | Pustaka`);
+    const token = authState?.token;
 
     const getData = async () => {
         try {
@@ -146,34 +144,13 @@ export const DataProvider = ({ children }) => {
         token && getWishlistAndCart();
     }, [token])
 
-    const calculatePercentOff = (discountedPrice, originalPrice) => Math.floor(((originalPrice - discountedPrice) * 100) / originalPrice)
-    const calculateTotalPrice = (cart) => cart.reduce((acc, curr) => acc + (curr?.qty * curr?.originalPrice), 0)
-    const calculateTotalDiscount = (cart) => cart.reduce((acc, curr) => acc + curr?.qty * (curr?.originalPrice - curr?.price), 0)
-
     return (
         <>
             <DataContext.Provider value={{
-                sortByPrice,
-                filterByCategory,
-                filterByRatings,
-                filterByPriceRange,
-                clearFilterHandler,
-                searchProductHandler,
-                getProductDetails,
-                calculatePercentOff,
-                calculateTotalPrice,
-                calculateTotalDiscount,
-                setCouponModal,
-                setCouponValue,
-                checkoutClickHandler,
-                handlePlaceOrderClick,
-                changeTitle,
-                categoryClickHandler,
-                dispatch,
-                couponValue,
-                couponModal,
-                loader,
-                state,
+                sortByPrice, filterByCategory, filterByRatings, filterByPriceRange, clearFilterHandler, searchProductHandler, getProductDetails,
+                setCouponModal, setCouponValue, dispatch, checkoutClickHandler, handlePlaceOrderClick, categoryClickHandler,
+                couponValue, couponModal,
+                loader, state,
                 products: searchedProducts,
                 productDetail: state.productDetail,
                 categories: state.categories,

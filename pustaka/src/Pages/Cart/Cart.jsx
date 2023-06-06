@@ -3,14 +3,15 @@ import { DataContext } from "../../Contexts/DataContext"
 import { CartProduct } from "../../Components/CartProduct/CartProduct";
 import { CartPrice } from "../../Components/CartPrice/CartPrice";
 import { CouponModal } from "../../Components/Modal/CouponModal";
+import { changeTitle } from "../../utils/commonUtils";
 import "./Cart.css";
 
 export const Cart = () => {
-    const { cart, couponModal, changeTitle } = useContext(DataContext);
+    const { cart, couponModal } = useContext(DataContext);
 
     useEffect(() => {
         changeTitle("Cart")
-    }, [changeTitle])
+    }, [])
     return (
         <>
             <h1>My Cart</h1>

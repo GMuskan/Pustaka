@@ -1,16 +1,16 @@
 import * as axios from 'axios';
 import { toast } from "react-toastify";
 
-export const isProductInCart = (product, token, state) => {
-    if (token) {
-        const foundProduct = state?.cart?.find(item => item?._id === product?._id)
-        if (foundProduct) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
+// export const isProductInCart = (product, token, state) => {
+//     if (token) {
+//         const foundProduct = state?.cart?.find(item => item?._id === product?._id)
+//         if (foundProduct) {
+//             return true;
+//         } else {
+//             return false;
+//         }
+//     }
+// }
 
 export const handleAddToCart = async (product, token, dispatch) => {
     if (token) {
@@ -118,6 +118,6 @@ export const handleMoveToWishlist = async (product, dispatch, token, state) => {
     }
 }
 
-export const clearCart = (dispatch) => {
-    dispatch({ type: "SET_INITIAL_CART", payload: [] })
-}
+// export const clearCart = (dispatch) => {
+//     dispatch({ type: "SET_INITIAL_CART", payload: [] })
+// }

@@ -2,16 +2,16 @@ import { toast } from "react-toastify";
 import { handleAddToCart } from "./CartService";
 import * as axios from 'axios';
 
-export const isProductInWishlist = (product, token, state) => {
-    if (token) {
-        const foundProduct = state?.wishlist?.length > 0 && state?.wishlist?.find(item => item._id === product._id)
-        if (foundProduct) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-}
+// export const isProductInWishlist = (product, token, state) => {
+//     if (token) {
+//         const foundProduct = state?.wishlist?.length > 0 && state?.wishlist?.find(item => item._id === product._id)
+//         if (foundProduct) {
+//             return true;
+//         } else {
+//             return false;
+//         }
+//     }
+// }
 
 export const handleAddToWishlist = async (product, token, dispatch) => {
     if (token) {
@@ -58,6 +58,6 @@ export const handleMoveToCart = async (product, token, dispatch) => {
 
 }
 
-export const clearWishlist = (dispatch) => {
-    dispatch({ type: "SET_INITIAL_WISHLIST", payload: [] })
-}
+// export const clearWishlist = (dispatch) => {
+//     dispatch({ type: "SET_INITIAL_WISHLIST", payload: [] })
+// }

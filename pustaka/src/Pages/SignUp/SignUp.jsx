@@ -1,8 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom"
 import "./SignUp.css";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../Contexts/DataContext";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { changeTitle } from "../../utils/commonUtils";
 
 const getActiveStyle = ({ isActive }) => ({
     margin: "1rem 0",
@@ -20,7 +20,6 @@ export const SignUp = () => {
 
     const [signUpForm, setSignUpForm] = useState({ "firstName": "", "lastName": "", "email": "", "password": "" });
 
-    const { changeTitle } = useContext(DataContext);
     const { handleSignUpClick, authState } = useContext(AuthContext);
 
     const token = authState?.token
@@ -30,7 +29,7 @@ export const SignUp = () => {
     }
     useEffect(() => {
         changeTitle("SignUp")
-    }, [changeTitle])
+    }, [])
 
     const handleShowHidePassword = () => {
         if (passwordType === "password") {

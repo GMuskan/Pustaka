@@ -1,12 +1,14 @@
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
+import { changeTitle } from "../../utils/commonUtils";
+
 import "./ProductPage.css";
 export const ProductPage = () => {
-    const { productDetail, changeTitle } = useContext(DataContext);
+    const { productDetail } = useContext(DataContext);
 
     useEffect(() => {
         changeTitle(productDetail?.name)
-    }, [productDetail?.name, changeTitle])
+    }, [productDetail?.name])
 
     return (
         <>

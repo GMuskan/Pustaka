@@ -5,13 +5,15 @@ import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import { AddressModal } from "../../Components/Modal/AddressModal";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { changeTitle } from "../../utils/commonUtils";
+
 export const Checkout = () => {
-    const { changeTitle, cart } = useContext(DataContext);
+    const {  cart } = useContext(DataContext);
     const { addressModal, setAddressModal } = useContext(AuthContext);
     const { addresses } = useContext(AuthContext);
     useEffect(() => {
         changeTitle("Checkout")
-    }, [changeTitle])
+    }, [])
 
     return (
         <>

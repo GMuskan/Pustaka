@@ -4,15 +4,15 @@ import { ProductCard } from "../../Components/ProductCard/ProductCard";
 import "./ProductListing.css";
 import { SideBar } from "../../Components/SideBar/SideBar";
 import { Loader } from "../../Components/Loader/Loader";
-
+import { changeTitle } from "../../utils/commonUtils";
 
 export const ProductListing = () => {
 
-    const { products, loader, changeTitle } = useContext(DataContext);
+    const { products, loader } = useContext(DataContext);
 
     useEffect(() => {
         changeTitle("Products")
-    }, [changeTitle])
+    }, [])
     return (
         <>
             <div className="product-listing-page">

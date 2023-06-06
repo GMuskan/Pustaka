@@ -1,19 +1,16 @@
 import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import { handleRemoveFromCart, increaseProductQuantity, decreaseProductQuantity, handleMoveToWishlist } from "../../Services/CartService";
-import { isProductInWishlist } from "../../Services/WishlistService";
+import { isProductInWishlist, calculatePercentOff } from "../../utils/commonUtils";
 import { AuthContext } from "../../Contexts/AuthContext";
 
 export const CartProduct = ({ cartItem }) => {
 
     const { authState } = useContext(AuthContext);
 
-    const { state, dispatch } = useContext(DataContext);
+    const { state, dispatch, cart } = useContext(DataContext);
 
     const token = authState?.token;
-
-    const { cart, calculatePercentOff } = useContext(DataContext);
-
 
     const checkQuantity = (cartItem) => {
         if (cart.find(item => item._id === cartItem._id).qty > 1) {

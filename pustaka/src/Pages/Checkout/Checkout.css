@@ -4,6 +4,16 @@
     justify-content: space-around;
 }
 
+.btn-add-address{
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: -webkit-fill-available;
+    background-color: #007bb5;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
 @media(max-width: 768px) {
     .checkout-page {
         display: flex;

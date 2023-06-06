@@ -8,6 +8,7 @@ import { DataProvider } from "./Contexts/DataContext";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { AuthProvider } from "./Contexts/AuthContext";
+import { Loader } from "./Components/Loader/Loader";
 
 // Call make Server
 makeServer();

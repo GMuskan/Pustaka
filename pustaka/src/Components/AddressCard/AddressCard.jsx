@@ -1,10 +1,11 @@
 import { useContext } from "react"
 import "./AddressCard.css"
-// import { DataContext } from "../../Contexts/DataContext"
 import { AuthContext } from "../../Contexts/AuthContext";
+import { toast } from "react-toastify";
 
 export const AddressCard = ({ userAddress }) => {
     const { setDeliveryAddress, setAddressModal, addresses, setUserAddresses, setAddressInput } = useContext(AuthContext);
+
     const updateAddressHandler = (addressId) => {
         const foundAddress = addresses.find((address) => address.id === addressId)
         setAddressModal(true);
@@ -14,6 +15,7 @@ export const AddressCard = ({ userAddress }) => {
     const deleteAddressHandler = (addressId) => {
         const newAddressArray = addresses.filter((address) => address.id !== addressId)
         setUserAddresses(newAddressArray)
+        toast.error("Address Deleted Sucessfully!");
     }
 
     return (
@@ -29,7 +31,7 @@ export const AddressCard = ({ userAddress }) => {
                     <p>{userAddress?.country}.</p>
                     <p>Phone Number: {userAddress?.phoneNumber}</p>
                 </label>
-                <span><button onClick={() => updateAddressHandler(userAddress?.id)}>Update</button>{" "}<button onClick={() => deleteAddressHandler(userAddress?.id)}>Delete</button></span>
+                <span><button className="btn-update-address" onClick={() => updateAddressHandler(userAddress?.id)}>Update</button>{" "}<button className="btn-delete-address" onClick={() => deleteAddressHandler(userAddress?.id)}>Delete</button></span>
             </div>
         </>
 

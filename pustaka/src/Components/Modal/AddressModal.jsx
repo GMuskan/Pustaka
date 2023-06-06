@@ -3,6 +3,7 @@ import { useContext } from "react"
 import "./AddressModal.css";
 import { v4 as uuid } from "uuid";
 import { AuthContext } from "../../Contexts/AuthContext";
+import { toast } from "react-toastify";
 
 export const AddressModal = () => {
     const { setAddressModal, setUserAddresses, addressInput, setAddressInput, addresses } = useContext(AuthContext);
@@ -83,8 +84,10 @@ export const AddressModal = () => {
                             setAddressModal(false);
                             if (addresses.some((address) => address.id === addressInput.id)) {
                                 setUserAddresses((prev) => prev.map(item => item.id === addressInput.id ? addressInput : item))
+                                toast.success("Address Updated Sucessfully!")
                             } else {
                                 setUserAddresses((prev) => [...prev, addressInput])
+                                toast.success("Address Added Sucessfully!")
                             }
                             setAddressInput({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" })
                         }}>Add</button>

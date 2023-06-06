@@ -7,3 +7,26 @@
     font-size: 12px;
     margin:0.5rem;
 }
+
+.btn-update-address {
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: -webkit-fill-available;
+    background-color: green;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+}
+
+.btn-delete-address {
+    padding: 0.5rem;
+    margin: 0.2rem;
+    width: -webkit-fill-available;
+    background-color: red;
+    border: none;
+    color: white;
+    cursor: pointer;
+
+}
+

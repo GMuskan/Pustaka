@@ -11,7 +11,7 @@ export const Header = () => {
     const { authState } = useContext(AuthContext);
     const { logoutClickHandler } = useContext(AuthContext);
 
-    
+
     return (
         <>
             <nav>

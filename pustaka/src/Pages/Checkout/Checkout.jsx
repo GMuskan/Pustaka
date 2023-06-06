@@ -25,7 +25,7 @@ export const Checkout = () => {
                             {addresses?.map((userAddress) => (
                                 <AddressCard userAddress={userAddress} key={userAddress.name} />
                             ))}
-                            <button className="btn-address" onClick={() => setAddressModal(true)}>Add Address</button>
+                            <button className="btn-add-address" onClick={() => setAddressModal(true)}>Add Address</button>
                         </div>
                         <div className="order-summary-section">
                             {/* <h1>Order Summary</h1> */}

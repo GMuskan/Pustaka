@@ -15,6 +15,7 @@ export const initialState = {
 }
 
 export const DataReducer = (state, action) => {
+    console.log(action, action.payload)
     switch (action.type) {
         case "SET_PRODUCTS":
             return { ...state, products: action.payload }
@@ -38,8 +39,8 @@ export const DataReducer = (state, action) => {
             return { ...state, cart: action.payload }
         case "ADD_TO_WISHLIST":
             return { ...state, wishlist: action.payload }
-        case "SET_WISHLIST":
-            return { ...state, wishlist: action.payload.wishlist, cart: action.payload.cart }
+        // case "SET_WISHLIST":
+        //     return { ...state, wishlist: action.payload.wishlist, cart: action.payload.cart }
         case "UPDATE_WISHLIST":
             return { ...state, wishlist: action.payload }
         case "SET_PRICE_FILTER":

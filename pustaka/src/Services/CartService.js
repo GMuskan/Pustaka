@@ -1,16 +1,6 @@
 import * as axios from 'axios';
 import { toast } from "react-toastify";
-
-// export const isProductInCart = (product, token, state) => {
-//     if (token) {
-//         const foundProduct = state?.cart?.find(item => item?._id === product?._id)
-//         if (foundProduct) {
-//             return true;
-//         } else {
-//             return false;
-//         }
-//     }
-// }
+import { handleAddToWishlist } from './WishlistService';
 
 export const handleAddToCart = async (product, token, dispatch) => {
     if (token) {
@@ -32,7 +22,7 @@ export const handleAddToCart = async (product, token, dispatch) => {
             console.error(e);
         }
     }
-   
+
 }
 
 export const handleRemoveFromCart = async (product, token, dispatch) => {
@@ -110,14 +100,11 @@ export const handleMoveToWishlist = async (product, dispatch, token, state) => {
                 authorization: token,
             },
         });
-        dispatch({ type: "SET_WISHLIST", payload: { wishlist: [...state?.wishlist, product], cart: response?.data?.cart } })
-        toast.success('Moved To Wishlist!');
-        toast.error('Removed From Cart!');
+
+        handleAddToWishlist(product, token, dispatch)
+        dispatch({ type: "UPDATE_WISHLIST", payload: [...state?.wishlist, product] })
+        dispatch({ type: "UPDATE_CART", payload: response?.data?.cart })
     } catch (e) {
         console.error(e)
     }
 }
-
-// export const clearCart = (dispatch) => {
-//     dispatch({ type: "SET_INITIAL_CART", payload: [] })
-// }

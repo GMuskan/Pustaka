@@ -25,7 +25,6 @@ export const AddressCard = ({ address, setAddressForm }) => {
     }
 
     const deleteAddressHandler = (addressId, token, authDispatch) => {
-        console.log(addressId)
         removeUserAddress(addressId, token, authDispatch)
     }
 

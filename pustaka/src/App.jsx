@@ -12,7 +12,7 @@ import { Login } from './Pages/Login/Login';
 import { PrivateRoute } from './Components/PrivateRoute/PrivateRoute';
 import { ProductPage } from './Pages/ProductPage/ProductPage';
 import { Checkout } from './Pages/Checkout/Checkout';
-import { PlaceOrder } from './Pages/PlaceOrder/PlaceOrder';
+import { OrderConfirmation } from './Pages/OrderConfirmation/Orderconfirmation';
 function App() {
   return (
     <div className="App">
@@ -41,7 +41,7 @@ function App() {
         } />
         <Route path="/place-order" element={
           <PrivateRoute>
-            <PlaceOrder />
+            <OrderConfirmation />
           </PrivateRoute>
         } />
         <Route path="/products" element={<ProductListing />} />

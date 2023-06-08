@@ -19,7 +19,7 @@ export const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [loginForm, setLoginForm] = useState({ email: "test@gmail.com", password: "test" });
+    const [loginForm, setLoginForm] = useState({ email: "muskaang710@gmail.com", password: "muskanGupta" });
 
     const { handleLoginClick, authState } = useContext(AuthContext);
 

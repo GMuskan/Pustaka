@@ -56,6 +56,7 @@ export const addAddressHandler = function (schema, request) {
         const userAddress = schema.users.findBy({
             _id: userId,
         }).address;
+
         const { address } = JSON.parse(request.requestBody);
         userAddress.push({
             ...address,
@@ -95,9 +96,7 @@ export const addAddressHandler = function (schema, request) {
  * */
 
 export const removeAddressHandler = function (schema, request) {
-    console.log("address controller", request)
     const userId = requiresAuth.call(this, request);
-    console.log("address controller", userId)
     try {
         if (!userId) {
             new Response(
@@ -115,7 +114,6 @@ export const removeAddressHandler = function (schema, request) {
         const addressId = request.params.addressId;
 
         userAddress = userAddress.filter((item) => item._id !== addressId);
-        console.log(userAddress);
         this.db.users.update(
             {
                 _id: userId,

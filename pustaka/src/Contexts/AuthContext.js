@@ -20,8 +20,6 @@ export const AuthProvider = ({ children }) => {
     };
     const [addressForm, setAddressForm] = useState(initialAddressForm);
 
-    console.log(authState);
-
     const handleSignUpClick = async ({ firstName, lastName, email, password }) => {
         if (firstName === "" || lastName === "" || email === "" || password === "") {
             navigate("/signup")
@@ -82,7 +80,6 @@ export const AuthProvider = ({ children }) => {
                 })
                 if (response?.status === 200) {
                     const { foundUser, encodedToken } = await response.json();
-                    console.log(foundUser?.address);
                     localStorage.setItem("user", JSON.stringify({ user: foundUser }));
                     localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
                     localStorage.setItem("address", JSON.stringify(foundUser?.address));

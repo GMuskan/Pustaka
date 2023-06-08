@@ -20,12 +20,11 @@ const addUserAddress = async (
             toast.success("New address is added!");
         }
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 
 const removeUserAddress = async (addressId, token, authDispatch) => {
-    console.log("inside address service")
     try {
         const res = await axios.delete(`api/user/address/${addressId}`, {
 
@@ -33,7 +32,6 @@ const removeUserAddress = async (addressId, token, authDispatch) => {
                 authorization: token,
             },
         });
-        console.log(res)
         authDispatch({ type: "SET_ADDRESS", payload: res?.data?.address })
         toast.success('Address removed!');
     } catch (err) {
@@ -60,7 +58,7 @@ const updateUserAddress = async (
             toast.success("Address Updated!");
         }
     } catch (err) {
-        console.log(err);
+        console.error(err);
     }
 };
 

@@ -7,7 +7,6 @@ export const UserAddress = () => {
     const { authState, addressModal, setAddressModal, setAddressForm } = useContext(AuthContext);
 
     const addressArr = authState?.address;
-    console.log(addressArr);
 
     return (
         <div className="user-address-container">

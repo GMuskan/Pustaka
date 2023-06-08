@@ -26,7 +26,6 @@ export const handleAddToWishlist = async (product, token, dispatch) => {
 
 export const handleRemoveFromWishlist = async (product, token, dispatch) => {
     try {
-       // console.log(product?._id)
         const response = await axios.delete(`/api/user/wishlist/${product?._id}`, {
             headers: {
                 authorization: token,

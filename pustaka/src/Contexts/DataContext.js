@@ -7,6 +7,7 @@ import { clearCart, clearWishlist } from "../utils/commonUtils";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
 import { initialOrderAddressState, orderReducer } from "../Reducers/OrderReducer";
+import { deleteCart } from "../Services/CartService";
 
 export const DataContext = createContext();
 
@@ -20,7 +21,9 @@ export const DataProvider = ({ children }) => {
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
     const [orderState, orderDispatch] = useReducer(orderReducer, initialOrderAddressState)
     // const {deliveryAddress} = useContext(AuthContext);
-    const [isProfileTab, setIsProfileTab] = useState(true)
+    const [isProfileTab, setIsProfileTab] = useState(true);
+    const [order, setOrder] = useState({});
+    // const [orderPlaced, setOrderPlaced] = useState(false);
 
 
     const { authState } = useContext(AuthContext);
@@ -133,8 +136,6 @@ export const DataProvider = ({ children }) => {
             "https://checkout.razorpay.com/v1/checkout.js"
         );
 
-        console.log(res);
-
         if (!res) {
             toast.error("Razorpay SDK failed to load, check you connection");
             return;
@@ -149,7 +150,6 @@ export const DataProvider = ({ children }) => {
             description: "Thank you for shopping with us",
             image: "https://github.com/GMuskan/Pustaka/blob/main/pustaka/src/Assets/app-icon.png?raw=true",
             handler: function (response) {
-                // eslint-disable-next-line
                 const orderData = {
                     _id: uuid(),
                     orderProducts: [...state?.cart],
@@ -157,12 +157,10 @@ export const DataProvider = ({ children }) => {
                     deliveryAddress: orderState?.orderAddress,
                     paymentId: response.razorpay_payment_id,
                 };
-
-                // setOrder({ ...orderData });
-                // setOrderPlace(true);
-                // clearCart(productDispatch, productState?.cart, encodedToken);
-                // productDispatch({ type: "setCartReset" });
-                // orderDispatch({ type: "setOrderReset" });
+                setOrder({ ...orderData });
+                navigate("/place-order");
+                clearCart(dispatch);
+                deleteCart(token, dispatch);
                 toast.success(`Payment of Rs. ${state?.orderSummary?.amount} Successful!`);
             },
             prefill: {
@@ -179,12 +177,6 @@ export const DataProvider = ({ children }) => {
 
     const handlePlaceOrderClick = () => {
         displayRazorPay();
-        // setTimeout(() => {
-        //     navigate("/products")
-        // }, 2000);
-        // navigate("/place-order");
-        // clearCart(dispatch);
-        // deleteCart(token, dispatch);
     }
 
     useEffect(() => {
@@ -224,6 +216,7 @@ export const DataProvider = ({ children }) => {
                 setCouponModal, setCouponValue, dispatch, checkoutClickHandler, handlePlaceOrderClick, categoryClickHandler,
                 isProfileTab, setIsProfileTab,
                 orderState, orderDispatch,
+                order, setOrder,
                 couponValue, couponModal,
                 loader, state,
                 products: searchedProducts,

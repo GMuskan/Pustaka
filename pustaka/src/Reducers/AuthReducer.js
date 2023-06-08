@@ -1,8 +1,6 @@
 const localStorageUser = JSON.parse(localStorage?.getItem("user"));
 const localStorageToken = JSON.parse(localStorage?.getItem("token"));
-const localStorageAddress = JSON.parse(localStorage.getItem("address"));
-
-console.log(localStorageAddress)
+const localStorageAddress = JSON.parse(localStorage?.getItem("address"));
 
 export const initialAuthState = {
     user: localStorageUser?.user,
@@ -11,7 +9,6 @@ export const initialAuthState = {
 }
 
 export const AuthReducer = (state, action) => {
-    console.log(action, action.payload)
     switch (action.type) {
         case "SET_USER":
             return { ...state, user: action.payload }

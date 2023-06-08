@@ -8,10 +8,10 @@
     margin:0.5rem;
 }
 
-.btn-update-address {
+.update-address-button{
     padding: 0.5rem;
     margin: 0.2rem;
-    width: -webkit-fill-available;
+    width: 5rem;
     background-color: green;
     border: none;
     color: white;
@@ -19,10 +19,10 @@
 
 }
 
-.btn-delete-address {
+.delete-address-button {
     padding: 0.5rem;
     margin: 0.2rem;
-    width: -webkit-fill-available;
+    width: 5rem;
     background-color: red;
     border: none;
     color: white;

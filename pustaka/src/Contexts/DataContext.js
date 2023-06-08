@@ -5,6 +5,10 @@ import { useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
 import { deleteCart } from "../Services/CartService";
 import { clearCart, clearWishlist } from "../utils/commonUtils";
+import { toast } from "react-toastify";
+import { v4 as uuid } from "uuid";
+import { initialOrderAddressState, orderReducer } from "../Reducers/OrderReducer";
+
 export const DataContext = createContext();
 
 export const DataProvider = ({ children }) => {
@@ -15,6 +19,10 @@ export const DataProvider = ({ children }) => {
     const [loader, setLoader] = useState(false);
     const [couponModal, setCouponModal] = useState(false);
     const [couponValue, setCouponValue] = useState({ couponName: "", value: 0 })
+    const [orderState, orderDispatch] = useReducer(orderReducer, initialOrderAddressState)
+    // const {deliveryAddress} = useContext(AuthContext);
+    const [isProfileTab, setIsProfileTab] = useState(true)
+
 
     const { authState } = useContext(AuthContext);
 
@@ -105,13 +113,78 @@ export const DataProvider = ({ children }) => {
         dispatch({ type: "SET_ORDER_SUMMARY", payload: { price: totalPrice, discount: totalDiscount, amount: totalAmount, coupon: couponValue } })
     }
 
+    const loadScript = async (url) => {
+        return new Promise((resolve) => {
+            const script = document.createElement("script");
+            script.src = url;
+
+            script.onload = () => {
+                resolve(true);
+            };
+
+            script.onerror = () => {
+                resolve(false);
+            };
+            document.body.appendChild(script);
+        });
+    };
+
+    const displayRazorPay = async () => {
+        const res = await loadScript(
+            "https://checkout.razorpay.com/v1/checkout.js"
+        );
+
+        console.log(res);
+
+        if (!res) {
+            toast.error("Razorpay SDK failed to load, check you connection");
+            return;
+        }
+
+        const options = {
+            key: "rzp_test_urWCFf025crWcy",
+            key_secret: "P00usi7xt5MhXcydMume4O1p",
+            amount: state?.orderSummary?.amount * 100,
+            currency: "INR",
+            name: "Pustaka",
+            description: "Thank you for shopping with us",
+            image: "https://github.com/GMuskan/Pustaka/blob/main/pustaka/src/Assets/app-icon.png?raw=true",
+            handler: function (response) {
+                const orderData = {
+                    _id: uuid(),
+                    orderProducts: [...state?.cart],
+                    amount: state?.orderSummary?.amount,
+                    deliveryAddress: orderState?.orderAddress,
+                    paymentId: response.razorpay_payment_id,
+                };
+
+                // setOrder({ ...orderData });
+                // setOrderPlace(true);
+                // clearCart(productDispatch, productState?.cart, encodedToken);
+                // productDispatch({ type: "setCartReset" });
+                // orderDispatch({ type: "setOrderReset" });
+                toast.success(`Payment of Rs. ${state?.orderSummary?.amount} Successful!`);
+            },
+            prefill: {
+                name: orderState?.orderAddress?.name,
+                contact: orderState?.orderAddress?.mobile,
+            },
+            theme: {
+                color: "#007bb5",
+            },
+        };
+        const paymentObject = new window.Razorpay(options);
+        paymentObject.open();
+    }
+
     const handlePlaceOrderClick = () => {
-        setTimeout(() => {
-            navigate("/products")
-        }, 2000);
-        navigate("/place-order");
-        clearCart(dispatch);
-        deleteCart(token, dispatch);
+        displayRazorPay();
+        // setTimeout(() => {
+        //     navigate("/products")
+        // }, 2000);
+        // navigate("/place-order");
+        // clearCart(dispatch);
+        // deleteCart(token, dispatch);
     }
 
     useEffect(() => {
@@ -149,6 +222,8 @@ export const DataProvider = ({ children }) => {
             <DataContext.Provider value={{
                 sortByPrice, filterByCategory, filterByRatings, filterByPriceRange, clearFilterHandler, searchProductHandler, getProductDetails,
                 setCouponModal, setCouponValue, dispatch, checkoutClickHandler, handlePlaceOrderClick, categoryClickHandler,
+                isProfileTab, setIsProfileTab,
+                orderState, orderDispatch,
                 couponValue, couponModal,
                 loader, state,
                 products: searchedProducts,

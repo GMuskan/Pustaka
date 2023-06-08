@@ -2,8 +2,6 @@ import { createContext, useReducer, useState } from "react";
 import { AuthReducer, initialAuthState } from "../Reducers/AuthReducer";
 import { useNavigate } from "react-router";
 import { toast } from "react-toastify";
-import { UserAddress } from "../data/address";
-import { v4 as uuid } from "uuid";
 
 export const AuthContext = createContext();
 
@@ -11,10 +9,19 @@ export const AuthProvider = ({ children }) => {
     const [authState, authDispatch] = useReducer(AuthReducer, initialAuthState);
     const navigate = useNavigate();
     const [addressModal, setAddressModal] = useState(false);
-    const [addresses, setUserAddresses] = useState(UserAddress);
-    const [addressInput, setAddressInput] = useState({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" });
-    const [deliveryAddress, setDeliveryAddress] = useState({ name: "", add: "", country: "", pincode: "", phone: "" })
-   
+    const initialAddressForm = {
+        name: "",
+        street: "",
+        city: "",
+        state: "",
+        country: "",
+        zipCode: "",
+        mobile: "",
+    };
+    const [addressForm, setAddressForm] = useState(initialAddressForm);
+
+    console.log(authState);
+
     const handleSignUpClick = async ({ firstName, lastName, email, password }) => {
         if (firstName === "" || lastName === "" || email === "" || password === "") {
             navigate("/signup")
@@ -35,7 +42,6 @@ export const AuthProvider = ({ children }) => {
                         'Content-type': 'application/json; charset=UTF-8',
                     },
                 })
-                //console.log(response);
                 if (response?.status === 201) {
                     const { createdUser, encodedToken } = await response.json();
                     localStorage.setItem("user", JSON.stringify({ user: createdUser }))
@@ -76,10 +82,13 @@ export const AuthProvider = ({ children }) => {
                 })
                 if (response?.status === 200) {
                     const { foundUser, encodedToken } = await response.json();
+                    console.log(foundUser?.address);
                     localStorage.setItem("user", JSON.stringify({ user: foundUser }));
                     localStorage.setItem("token", JSON.stringify({ token: encodedToken }));
+                    localStorage.setItem("address", JSON.stringify(foundUser?.address));
                     authDispatch({ type: "SET_USER", payload: foundUser });
                     authDispatch({ type: "SET_TOKEN", payload: encodedToken });
+                    authDispatch({ type: "SET_ADDRESS", payload: foundUser?.address });
                     toast.success('Logged In Successfully!')
                 } else if (response?.status === 401) {
                     navigate("/login")
@@ -97,11 +106,11 @@ export const AuthProvider = ({ children }) => {
     const logoutClickHandler = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("token");
-        // setToken("");
-        //setUser();
+        localStorage.removeItem("address");
+
         authDispatch({ type: "SET_USER", payload: "" });
-        authDispatch({ type: "SET_TOKEN", payload: "" })
-        setUserAddresses(UserAddress)
+        authDispatch({ type: "SET_TOKEN", payload: "" });
+        authDispatch({ type: "SET_ADDRESS", payload: [] });
         navigate("/products");
 
     }
@@ -111,15 +120,10 @@ export const AuthProvider = ({ children }) => {
             handleSignUpClick,
             handleLoginClick,
             logoutClickHandler,
-            setDeliveryAddress,
-            setAddressInput,
             setAddressModal,
-            setUserAddresses,
             addressModal,
-            addressInput,
             authState,
-            addresses,
-            deliveryAddress,
+            addressForm, setAddressForm, initialAddressForm, authDispatch
         }}>
             {children}
         </AuthContext.Provider>

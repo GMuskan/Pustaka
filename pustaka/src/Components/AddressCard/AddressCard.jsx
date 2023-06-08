@@ -1,37 +1,61 @@
 import { useContext } from "react"
 import "./AddressCard.css"
 import { AuthContext } from "../../Contexts/AuthContext";
-import { toast } from "react-toastify";
+import { removeUserAddress } from "../../Services/AddressService";
 
-export const AddressCard = ({ userAddress }) => {
-    const { setDeliveryAddress, setAddressModal, addresses, setUserAddresses, setAddressInput } = useContext(AuthContext);
+export const AddressCard = ({ address, setAddressForm }) => {
 
-    const updateAddressHandler = (addressId) => {
-        const foundAddress = addresses.find((address) => address.id === addressId)
+    const { authState, authDispatch, setAddressModal } = useContext(AuthContext)
+    const { _id, name, street, city, state, zipCode, country, mobile } = address;
+    const token = authState?.token
+
+    const updateAddressHandler = (_id, name, street, city, state, zipCode, country, mobile) => {
         setAddressModal(true);
-        setAddressInput({ id: foundAddress?.id, name: foundAddress?.name, address: foundAddress?.address, pincode: foundAddress?.pincode, country: foundAddress?.country, phoneNumber: foundAddress?.phoneNumber })
+        setAddressForm((prev) => ({
+            ...prev,
+            _id,
+            name,
+            street,
+            city,
+            state,
+            zipCode,
+            country,
+            mobile
+        }))
     }
 
-    const deleteAddressHandler = (addressId) => {
-        const newAddressArray = addresses.filter((address) => address.id !== addressId)
-        setUserAddresses(newAddressArray)
-        toast.error("Address Deleted Sucessfully!");
+    const deleteAddressHandler = (addressId, token, authDispatch) => {
+        console.log(addressId)
+        removeUserAddress(addressId, token, authDispatch)
     }
 
     return (
         <>
             <div className="address-card">
-                <label>
-                    <span><input
-                        type="radio"
-                        name="select-address"
-                        onChange={() => setDeliveryAddress({ name: userAddress?.name, add: userAddress?.address, pincode: userAddress?.pincode, country: userAddress?.country, phone: userAddress?.phoneNumber })} />{" "} {userAddress?.name}</span>
-                    <p>{userAddress?.address}</p>
-                    <p>{userAddress?.pincode}</p>
-                    <p>{userAddress?.country}.</p>
-                    <p>Phone Number: {userAddress?.phoneNumber}</p>
-                </label>
-                <span><button className="btn-update-address" onClick={() => updateAddressHandler(userAddress?.id)}>Update</button>{" "}<button className="btn-delete-address" onClick={() => deleteAddressHandler(userAddress?.id)}>Delete</button></span>
+                <div className="user-address-card-container">
+                    <p className="user-address-card-name">{name}</p>
+                    <p>
+                        {street}, {city}, {state}
+                    </p>
+                    <p>
+                        PinCode: {zipCode}, {country}
+                    </p>
+                    <p>Mobile No. {mobile}</p>
+                    <button className="update-address-button"
+                        onClick={() =>
+                            updateAddressHandler(_id, name, street, city, state, country, zipCode, mobile)
+                        }
+                    >
+                        Edit
+                    </button>
+                    <button className="delete-address-button"
+                        onClick={() =>
+                            deleteAddressHandler(address?._id, token, authDispatch)
+                        }
+                    >
+                        Delete
+                    </button>
+                </div>
             </div>
         </>
 

@@ -3,7 +3,6 @@ import * as axios from 'axios';
 import { DataReducer, initialState } from "../Reducers/dataReducer";
 import { useNavigate } from "react-router";
 import { AuthContext } from "./AuthContext";
-import { deleteCart } from "../Services/CartService";
 import { clearCart, clearWishlist } from "../utils/commonUtils";
 import { toast } from "react-toastify";
 import { v4 as uuid } from "uuid";
@@ -150,6 +149,7 @@ export const DataProvider = ({ children }) => {
             description: "Thank you for shopping with us",
             image: "https://github.com/GMuskan/Pustaka/blob/main/pustaka/src/Assets/app-icon.png?raw=true",
             handler: function (response) {
+                // eslint-disable-next-line
                 const orderData = {
                     _id: uuid(),
                     orderProducts: [...state?.cart],

@@ -1,7 +1,6 @@
 import "./Checkout.css";
-import { AddressCard } from "../../Components/AddressCard/AddressCard";
 import { OrderSummary } from "../OrderSummary/OrderSummary";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
 import { AddressModal } from "../../Components/Modal/AddressModal";
 import { AuthContext } from "../../Contexts/AuthContext";
@@ -10,16 +9,11 @@ import { OrderAddress } from "../../Components/OrderAddress/OrderAddress";
 
 export const Checkout = () => {
     const {  cart } = useContext(DataContext);
-    const { addressModal, setAddressModal, authState } = useContext(AuthContext);
-    const { addresses } = useContext(AuthContext);
-    // const [selectedAddress, setSelectedAddress] = useState(
-    //     authState?.address?.[0]
-    // );
+    const { addressModal } = useContext(AuthContext);
+    
     useEffect(() => {
         changeTitle("Checkout")
     }, [])
-
-    const addressArr = authState?.address;
 
     return (
         <>

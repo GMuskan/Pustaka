@@ -2,11 +2,16 @@ import { useNavigate } from "react-router-dom";
 import "./Header.css";
 import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
+import { AuthContext } from "../../Contexts/AuthContext";
 
 
 export const Header = () => {
     const navigate = useNavigate();
-    const { searchProductHandler, wishlist, cart, token, logoutClickHandler, search, user } = useContext(DataContext);
+    const { searchProductHandler, wishlist, cart, search } = useContext(DataContext);
+    const { authState } = useContext(AuthContext);
+    const { logoutClickHandler } = useContext(AuthContext);
+
+
     return (
         <>
             <nav>
@@ -28,7 +33,7 @@ export const Header = () => {
                         <div className="btn-icon">
                             <i className="fa fa-heart" aria-hidden="true"></i>
                         </div>
-                        {token && wishlist && <div className="btn-count">
+                        {authState?.token && wishlist && <div className="btn-count">
                             <p>{wishlist?.length}</p>
                         </div>}
                     </button>
@@ -37,7 +42,7 @@ export const Header = () => {
                         <div className="btn-icon">
                             <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                         </div>
-                        {token && cart && <div className="btn-count">
+                        {authState?.token && cart && <div className="btn-count">
                             <p>{cart?.length}</p>
                         </div>}
                     </button>
@@ -45,9 +50,9 @@ export const Header = () => {
                         <i className="fa fa-user" aria-hidden="true"></i>
                     </button>
                 </div>
-                {user &&
+                {authState?.user &&
                     <div className="user-name">
-                        Welcome, {user?.firstName}!
+                        Welcome, {authState?.user?.firstName}!
                     </div>
                 }
                 <div className="logout-btn">

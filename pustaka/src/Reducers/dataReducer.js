@@ -11,7 +11,7 @@ export const initialState = {
     sortByPrice: "",
     priceRange: 0,
     orderSummary: [],
-    deliveryAddress: []
+    deliveryAddress: {}
 }
 
 export const DataReducer = (state, action) => {
@@ -38,8 +38,6 @@ export const DataReducer = (state, action) => {
             return { ...state, cart: action.payload }
         case "ADD_TO_WISHLIST":
             return { ...state, wishlist: action.payload }
-        case "SET_WISHLIST":
-            return { ...state, wishlist: action.payload.wishlist, cart: action.payload.cart }
         case "UPDATE_WISHLIST":
             return { ...state, wishlist: action.payload }
         case "SET_PRICE_FILTER":

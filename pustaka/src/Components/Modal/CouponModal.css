@@ -1,9 +1,10 @@
 .modal-wrapper {
     background: #342e2ebf;
-    width: 100vw;
-    position: fixed;
-    height: 100vh;
-    top: 0;
+    width: 10vw;
+    position: relative;
+    height: fit-content;
+    top: -25rem;
+    left: 0rem;
     z-index: 8888;
 }
 

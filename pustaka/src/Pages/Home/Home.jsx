@@ -1,9 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
-// import * as axios from 'axios';
 import "./Home.css"
 import { useContext, useEffect } from "react";
 import { DataContext } from "../../Contexts/DataContext";
-
+import { changeTitle } from "../../utils/commonUtils";
 
 const getActiveStyle = ({ isActive }) => ({
     margin: "1rem 0",
@@ -16,10 +15,10 @@ const getActiveStyle = ({ isActive }) => ({
 export const Home = () => {
     const navigate = useNavigate()
 
-    const { categories, changeTitle, categoryClickHandler } = useContext(DataContext);
+    const { categories, categoryClickHandler } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Ecommerce")
-    }, [changeTitle])
+    }, [])
 
     return (
         <>

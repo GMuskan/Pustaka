@@ -1,11 +1,15 @@
 import { useContext, useEffect } from "react"
 import { DataContext } from "../../Contexts/DataContext"
 import "./OrderSummary.css"
+import { changeTitle } from "../../utils/commonUtils";
+
 export const OrderSummary = () => {
-    const { orderSummary, cart, deliveryAddress, handlePlaceOrderClick, changeTitle } = useContext(DataContext);
+    const { orderSummary, cart, handlePlaceOrderClick } = useContext(DataContext);
+    //const { deliveryAddress } = useContext(AuthContext);
+    const { orderState } = useContext(DataContext);
     useEffect(() => {
         changeTitle("Order Summary")
-    }, [changeTitle])
+    }, [])
     return (
         <>
             <div className="order-summary">
@@ -65,17 +69,19 @@ export const OrderSummary = () => {
                     </div>
                 </div>
 
-                {deliveryAddress?.add !== "" &&
+                {orderState?.orderAddress && Object.keys(orderState?.orderAddress)?.length > 0  &&
                     <div>
                         <hr />
                         <h4>DELIVER TO</h4>
                         <hr />
                         <div className="address-details">
-                            <p>{deliveryAddress?.name}</p>
-                            <p>{deliveryAddress?.add}</p>
-                            <p>{deliveryAddress?.country}</p>
-                            <p>{deliveryAddress?.pincode}</p>
-                            <p>Phone Number: {deliveryAddress?.phone}</p>
+                            <p>{orderState?.orderAddress?.name}</p>
+                            <p>{orderState?.orderAddress?.street}</p>
+                            <p>{orderState?.orderAddress?.city}</p>
+                            <p>{orderState?.orderAddress?.state}</p>
+                            <p>{orderState?.orderAddress?.country}</p>
+                            <p>{orderState?.orderAddress?.zipCode}</p>
+                            <p>Phone Number: {orderState?.orderAddress?.mobile}</p>
                         </div>
                     </div>
                 }

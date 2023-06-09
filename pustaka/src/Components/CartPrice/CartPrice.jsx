@@ -1,9 +1,10 @@
 import { useContext } from "react";
 import { DataContext } from "../../Contexts/DataContext";
+import { calculateTotalPrice, calculateTotalDiscount,  } from "../../utils/commonUtils";
 
 export const CartPrice = ({ cart }) => {
 
-    const { calculateTotalPrice, calculateTotalDiscount, setCouponModal, couponValue, setCouponValue, checkoutClickHandler } = useContext(DataContext);
+    const { setCouponModal, couponValue, setCouponValue, checkoutClickHandler } = useContext(DataContext);
     const totalPrice = calculateTotalPrice(cart);
     const totalDiscount = calculateTotalDiscount(cart)
     const coupon = calculateTotalPrice

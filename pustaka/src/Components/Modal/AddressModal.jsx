@@ -1,10 +1,27 @@
 import { useContext } from "react"
-import { DataContext } from "../../Contexts/DataContext"
 import "./AddressModal.css";
-import { v4 as uuid } from "uuid";
-
+import { AuthContext } from "../../Contexts/AuthContext";
+import { updateUserAddress, addUserAddress } from "../../Services/AddressService";
 export const AddressModal = () => {
-    const { setAddressModal, setUserAddresses, addressInput, setAddressInput, addresses } = useContext(DataContext);
+    const { setAddressModal, addressForm, setAddressForm, initialAddressForm, authState, authDispatch } = useContext(AuthContext);
+    const token = authState?.token
+
+    const saveAddressHandler = (e) => {
+        e.preventDefault();
+        addressForm._id
+            ? updateUserAddress(
+                addressForm,
+                token,
+                authDispatch,
+
+            )
+            : addUserAddress(
+                addressForm,
+                token,
+                authDispatch,
+
+            );
+    };
     return (
         <>
             <div className="modal-wrapper">
@@ -13,7 +30,7 @@ export const AddressModal = () => {
                         <h3>Add Address</h3>
                         <i className="fa fa-times" aria-hidden="true" onClick={() => {
                             setAddressModal(false)
-                            setAddressInput({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" })
+                            setAddressForm(initialAddressForm)
                         }} />
                     </div>
                     <div className="addressModal">
@@ -21,72 +38,74 @@ export const AddressModal = () => {
                             <label htmlFor="name">
                                 Name:
                             </label>
-                            <input type="text" id="name" value={addressInput?.name}
+                            <input type="text" id="name" value={addressForm?.name}
                                 onChange={(e) => {
-                                    setAddressInput({
-                                        ...addressInput,
-                                        name: e.target.value,
-                                    }
-
-                                    )
-                                }} />
+                                    setAddressForm((prev) => ({ ...prev, name: e.target.value }))
+                                }}
+                            />
                         </div>
                         <div className="address-field">
-                            <label htmlFor="add">
-                                Address:
+                            <label htmlFor="street">
+                                Street:
                             </label>
-                            <input type="text" id="add" value={addressInput?.address}
+                            <input type="text" id="street" value={addressForm?.street}
                                 onChange={(e) =>
-                                    setAddressInput({
-                                        ...addressInput,
-                                        address: e.target.value,
-                                    })} />
-
+                                    setAddressForm((prev) => ({ ...prev, street: e.target.value }))
+                                } />
                         </div>
-                        <div className="pincode-field">
-                            <label htmlFor="pincode">
-                                PinCode:
+                        <div className="address-field">
+                            <label htmlFor="city">
+                                City:
                             </label>
-                            <input type="text" id="pincode" value={addressInput?.pincode}
+                            <input type="text" id="city" value={addressForm?.city}
                                 onChange={(e) =>
-                                    setAddressInput({
-                                        ...addressInput,
-                                        pincode: e.target.value,
-                                    })} />
+                                    setAddressForm((prev) => ({ ...prev, city: e.target.value }))
+                                } />
                         </div>
-                        <div className="country-field">
+                        <div className="address-field">
+                            <label htmlFor="state">
+                                State:
+                            </label>
+                            <input type="text" id="state" value={addressForm?.state}
+                                onChange={(e) =>
+                                    setAddressForm((prev) => ({ ...prev, state: e.target.value }))} />
+                        </div>
+                        <div className="address-field">
                             <label htmlFor="country">
                                 Country:
                             </label>
-                            <input type="text" id="country" value={addressInput?.country}
+                            <input type="text" id="country" value={addressForm?.country}
                                 onChange={(e) =>
-                                    setAddressInput({
-                                        ...addressInput,
-                                        country: e.target.value,
-                                    })} />
+                                    setAddressForm((prev) => ({ ...prev, country: e.target.value }))
+                                } />
                         </div>
+                        <div className="address-field">
+                            <label htmlFor="zipCode">
+                                ZipCode:
+                            </label>
+                            <input type="text" id="zipCode" value={addressForm?.zipCode}
+                                onChange={(e) =>
+                                    setAddressForm((prev) => ({ ...prev, zipCode: e.target.value }))} />
+                        </div>
+
                         <div className="phone-field">
-                            <label htmlFor="phone">
+                            <label htmlFor="mobile">
                                 Phone:
                             </label>
-                            <input type="text" id="phone" value={addressInput?.phoneNumber}
+                            <input type="text" id="mobile" value={addressForm?.mobile}
                                 onChange={(e) =>
-                                    setAddressInput({
-                                        ...addressInput,
-                                        phoneNumber: e.target.value,
-                                    })} />
+                                    setAddressForm((prev) => ({ ...prev, mobile: e.target.value }))
+                                } />
                         </div>
                     </div>
                     <div>
-                        <button className="add-btn" onClick={() => {
-                            setAddressModal(false);
-                            if (addresses.some((address) => address.id === addressInput.id)) {
-                                setUserAddresses((prev) => prev.map(item => item.id === addressInput.id ? addressInput : item))
-                            } else {
-                                setUserAddresses((prev) => [...prev, addressInput])
-                            }
-                            setAddressInput({ id: uuid(), name: "", address: "", pincode: "", country: "", phoneNumber: "" })
-                        }}>Add</button>
+                        <button className="add-btn"
+                            onClick={(e) => {
+                                setAddressModal(false);
+                                saveAddressHandler(e);
+                                setAddressForm(initialAddressForm)
+                            }}
+                        >Add</button>
                     </div>
                 </div>
 

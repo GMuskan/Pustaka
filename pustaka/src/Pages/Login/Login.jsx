@@ -1,7 +1,8 @@
 import { NavLink, useLocation, useNavigate } from "react-router-dom"
 import "./Login.css";
 import { useContext, useEffect, useState } from "react";
-import { DataContext } from "../../Contexts/DataContext";
+import { AuthContext } from "../../Contexts/AuthContext";
+import { changeTitle } from "../../utils/commonUtils";
 
 const getActiveStyle = ({ isActive }) => ({
     margin: "1rem 0",
@@ -18,17 +19,17 @@ export const Login = () => {
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [loginForm, setLoginForm] = useState({ email: "test@gmail.com", password: "test" });
+    const [loginForm, setLoginForm] = useState({ email: "muskaang710@gmail.com", password: "muskanGupta" });
 
-    const { handleLoginClick, token, changeTitle } = useContext(DataContext);
+    const { handleLoginClick, authState } = useContext(AuthContext);
 
-    if (token) {
+    if (authState?.token) {
         navigate(location?.state?.from || "/products");
     }
 
     useEffect(() => {
         changeTitle("Login")
-    }, [changeTitle])
+    }, [])
 
     const handleShowHidePassword = () => {
         if (passwordType === "password") {

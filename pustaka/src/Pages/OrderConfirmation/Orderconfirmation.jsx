@@ -23,7 +23,7 @@ const OrderConfirmation = () => {
             {paymentId ? (
 
                 <div className="order-confirmation-container">
-                    <h1 className="order-confirmation-heading">🥂 You order has successfully placed !{placedHandler()}</h1>
+                    <h1 className="order-confirmation-heading">🥂 You order has been placed successfully !{placedHandler()}</h1>
                     <div className="order-confirmation-box">
                         <h3 className="order-confirmation-status">Order Confirmed</h3>
                         <div className="order-confirmation-details">

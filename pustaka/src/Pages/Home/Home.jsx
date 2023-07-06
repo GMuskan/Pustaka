@@ -47,14 +47,14 @@ export const Home = () => {
                 </div>
                 <footer>
                     <div className="About">
-                        <h2>Pustaka</h2>
+                        <p className="home-footer-heading">Pustaka</p>
                         <p>Fill your house with stacks of books, in all the crannies and all the nooks.</p>
                         {/* <p>Privacy Policy</p>
                         <p>Terms of Use</p> */}
                         <p>© 2023 Pustaka</p>
                     </div>
                     <div className="connect">
-                        <p>Connect</p>
+                        <p className="home-footer-heading">Connect</p>
                         <div className="connect-buttons">
                             <button><NavLink style={getActiveStyle} to="https://github.com/GMuskan"><i className="fa fa-github-square" style={{ fontSize: "22px" }} aria-hidden="true"></i></NavLink></button>
                             <button><NavLink style={getActiveStyle} to="https://www.linkedin.com/in/muskan-gupta-75482b166/"><img src={linkedInImage} alt="linkedin-icon" /></NavLink></button>
@@ -62,8 +62,8 @@ export const Home = () => {
                         </div>
                     </div>
                     <div className="resources">
-                        <p>Resources</p>
-                        <div>
+                        <p className="home-footer-heading">Resources</p>
+                        <div className="home-resources">
                             <button style={{ color: "white" }} onClick={() => navigate("/signup")}>
                                 Sign  Up
                             </button>

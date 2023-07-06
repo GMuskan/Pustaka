@@ -91,6 +91,12 @@ footer {
 .resources{
   display: flex;
   flex-direction: column;
+  text-align: left;
+}
+
+.resources .home-resources {
+  position: relative;
+  left: -1rem;
 }
 
 footer .connect button {
@@ -107,6 +113,11 @@ footer .resources button {
 
 .shop-now-btn:hover {
   cursor: pointer;
+}
+
+.home-footer-heading{
+  font-size: 18px;
+  font-weight: bold;
 }
  
 @media only screen and (min-width: 768px) {
@@ -175,16 +186,9 @@ footer .resources button {
   }
   
   /* footer{
-    display: flex;
-    justify-content: space-between;
-    background-color: black;
-    color: white;
-    height: 100%;
-    max-width: 100%;
-    flex-wrap: wrap;
-    padding: 1rem
-  }
-  .About{
+    font-size: 5px;
+  } */
+  /* .About{
     display: flex;
     flex-direction: column;
     text-align: left;
@@ -211,9 +215,12 @@ footer .resources button {
     cursor: pointer;
   } */
 
-    .resources {
-      display: flex;
-      flex-direction: column;
-    }
+  .resources {
+    display: flex;
+    flex-direction: column;
+  }
+  .home-footer-heading{
+    font-size: 22px;
+  }
 }
   

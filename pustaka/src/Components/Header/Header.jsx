@@ -22,7 +22,7 @@ export const Header = () => {
                     <i className="fa fa-search" aria-hidden="true"></i>
                     <input
                         type="text"
-                        placeholder="Search for product"
+                        placeholder="Search"
                         className="search-bar"
                         value={search}
                         onChange={(e) => {

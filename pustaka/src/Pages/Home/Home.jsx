@@ -6,7 +6,6 @@ import { changeTitle } from "../../utils/commonUtils";
 import homeImage from "../../Assets/home-img.jpg";
 import linkedInImage from "../../Assets/linkedin.png";
 import twitterImage from "../../Assets/twitter.png";
-
 const getActiveStyle = ({ isActive }) => ({
     margin: "1rem 0",
     textDecoration: "none",

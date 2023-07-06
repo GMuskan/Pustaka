@@ -25,7 +25,10 @@ export const Header = () => {
                         placeholder="Search for product"
                         className="search-bar"
                         value={search}
-                        onChange={(e) => searchProductHandler(e)}
+                        onChange={(e) => {
+                            navigate("/products")
+                            searchProductHandler(e)
+                        }}
                     />
                 </div>
                 <div className="actionItems">

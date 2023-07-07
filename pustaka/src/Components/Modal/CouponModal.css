@@ -59,10 +59,3 @@
     font-size: 1.2rem;
     cursor: pointer;
 }
-
-@media screen and (max-width:500px) {
-    .coupon-option {
-        font-size: 0.8rem;
-        padding: 0.5rem;
-    }
-}

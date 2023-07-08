@@ -1,3 +1,30 @@
+.sidebar {
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    
+
+    
+        
+    
+}
+.hamburger {
+    border: 0;
+    height: 40px;
+    width: 40px;
+    padding: 0.5rem;
+    border-radius: 50%;
+    /* background-color: #283b8b; */
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+    position: absolute;
+    top: 12%;
+    right: 1px;
+    transform: translateY(-50%);
+    display: block;
+}
 .Filters{
     border-right: 1px solid black;
     height: 100%;
@@ -5,34 +32,54 @@
     position: relative;
     top: -45px;
     padding: 2rem;
-    width: 150px;
+    width: 200px;
     text-align: left;
+    display: none;
+    
+    
 }
-
-.filter-header{
+.FilterExpanded {
+    border-right: 1px solid black;
+    height: 100%;
+    margin: 2rem;
+    position: relative;
+    top: -45px;
+    padding: 2rem;
+    width: 200px;
+    text-align: left;
+    background-color: white;
+    display: block;
+}
+.filter-header {
     display: flex;
     justify-content: space-between;
 }
 
-.filter-header button{
+.filter-header button {
     border: none;
     background-color: white;
     text-decoration: underline;
 }
 
-.filter-categories{
+.filter-categories {
     display: flex;
     flex-direction: column;
+    justify-content:flex-start;
+    align-items: flex-start;
 }
 
-.filter-ratings{
+.filter-ratings {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.filter-sorting{
+.filter-sorting {
     display: flex;
     flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
 datalist {
@@ -52,7 +99,7 @@ input[type="range"] {
     margin: 0;
 }
 
-.priceRangeValues{
+.priceRangeValues {
     display: flex;
     justify-content: space-between;
     width: 150px;
@@ -63,8 +110,77 @@ input[type="range"] {
     cursor: pointer;
 }
 
+
+
 @media (min-width: 768px){
-    .Filters{
-        width: 200px;
+    /* .sidebar{
+        width: 30%;
+    } */
+    .hamburger {
+        display: none;
     }
+    .Filters {
+        border-right: 1px solid black;
+        height: 100%;
+        margin: 2rem;
+        position: relative;
+        top: -45px;
+        padding: 2rem;
+        width: 200px;
+        text-align: left;
+        display: block;
+    }
+        /* .filter-header {
+            display: flex;
+            justify-content: space-between;
+        }
+    
+        .filter-header button {
+            border: none;
+            background-color: white;
+            text-decoration: underline;
+        }
+    
+        .filter-categories {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .filter-ratings {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        .filter-sorting {
+            display: flex;
+            flex-direction: column;
+        }
+    
+        datalist {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            writing-mode: horizontal-lr;
+            width: 150px;
+        }
+    
+        option {
+            padding: 0;
+        }
+    
+        input[type="range"] {
+            width: 150px;
+            margin: 0;
+        }
+    
+        .priceRangeValues {
+            display: flex;
+            justify-content: space-between;
+            width: 150px;
+            padding: 0.05rem;
+        }
+    
+        .btn-clear {
+            cursor: pointer;
+        } */
 }

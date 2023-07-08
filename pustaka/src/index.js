@@ -19,7 +19,7 @@ ReactDOM.render(
         <DataProvider>
           <App />
           <ToastContainer className="toast-container"
-            position="top-right"
+            position="bottom-right"
             autoClose={700}
             hideProgressBar={false}
             closeOnClick={true}

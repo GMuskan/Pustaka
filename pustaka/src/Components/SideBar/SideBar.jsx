@@ -1,23 +1,33 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { DataContext } from "../../Contexts/DataContext"
 import "./SideBar.css"
 
 export const SideBar = () => {
-    const {  sortByPrice, filterByCategory, filterByRatings, filterByPriceRange, clearFilterHandler, categories, categoryFilter, priceFilter, ratingFilter, priceRangeFilter } = useContext(DataContext);
+    const { sortByPrice, filterByCategory, filterByRatings, filterByPriceRange, clearFilterHandler, categories, categoryFilter, priceFilter, ratingFilter, priceRangeFilter } = useContext(DataContext);
 
     const ratingArray = [1, 2, 3, 4];
     const priceFilterArray = [
         { label: "Low To High", value: "lowToHigh" },
         { label: "High To Low", value: "highToLow" },
     ]
+
+    const [isSideBarExpanded, setIsSideBarExpanded] = useState(false)
+    console.log(isSideBarExpanded)
     return (
-        <>
-            <div className="Filters">
+        <div className="sidebar">
+            <div className="hamburger" onClick={() => {
+                console.log("clicked", isSideBarExpanded)
+                setIsSideBarExpanded((prev) => !prev)
+            }}>
+                <i className="fa fa-bars" aria-hidden="true"></i>
+            </div>
+            <div className={isSideBarExpanded ? "FiltersExpanded" : "Filters"}>
+                {/* <ul> */}
                 <div className="filter-header">
                     <h4>Filters</h4>
                     <button className="btn-clear" onClick={clearFilterHandler}>Clear</button>
                 </div>
-                <div> 
+                <div className="price-range">
                     <label htmlFor="priceRange"><h4>Price</h4></label>
                     <input
                         type="range"
@@ -39,22 +49,24 @@ export const SideBar = () => {
                 <div className="filter-categories">
                     <h4>Category</h4>
                     {categories?.map(({ _id, categoryName }) => (
-                        <label key={_id}>
-                            <input
-                                type="checkbox"
-                                key={categoryName}
-                                value={categoryName}
-                                checked={categoryFilter?.includes(categoryName)}
-                                onChange={(e) => filterByCategory(e)}
-                            />
-                            {categoryName}
-                        </label>
+                        <div key={_id}>
+                            <label >
+                                <input
+                                    type="checkbox"
+                                    key={categoryName}
+                                    value={categoryName}
+                                    checked={categoryFilter?.includes(categoryName)}
+                                    onChange={(e) => filterByCategory(e)}
+                                />
+                                {categoryName}
+                            </label>
+                        </div>
                     ))}
                 </div>
 
                 <div className="filter-ratings">
                     <h4>Rating</h4>
-                    {ratingArray.map((rating) => 
+                    {ratingArray.map((rating) =>
                         <label key={rating}>
                             <input
                                 type="radio"
@@ -71,7 +83,7 @@ export const SideBar = () => {
 
                 <div className="filter-sorting">
                     <h4>Sort By</h4>
-                    {priceFilterArray.map(({label, value}) => (
+                    {priceFilterArray.map(({ label, value }) => (
                         <label key={value}>
                             <input
                                 type="radio"
@@ -85,7 +97,8 @@ export const SideBar = () => {
                         </label>
                     ))}
                 </div>
+                {/* </ul> */}
             </div>
-        </>
+        </div>
     )
 }

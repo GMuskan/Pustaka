@@ -40,7 +40,7 @@ export const SignUp = () => {
     }
 
     return (
-        <>
+        <div className="signup-page">
             <div className="signUp-card">
                 <h1>Sign Up</h1>
 
@@ -77,6 +77,6 @@ export const SignUp = () => {
                 <NavLink style={getActiveStyle} to="/login">Already have an account ? </NavLink>
             </div>
 
-        </>
+        </div>
     )
 }

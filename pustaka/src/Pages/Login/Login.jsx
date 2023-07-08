@@ -40,7 +40,7 @@ export const Login = () => {
     }
 
     return (
-        <>
+        <div className="login-page">
             <div className="login-card">
                 <h1>Login</h1>
                 <div className="userEmail">
@@ -61,7 +61,6 @@ export const Login = () => {
                 <button onClick={() => handleLoginClick(loginForm)}>Login</button>
                 <NavLink style={getActiveStyle} to="/signup">Create New Account</NavLink>
             </div>
-
-        </>
+        </div>
     )
 }

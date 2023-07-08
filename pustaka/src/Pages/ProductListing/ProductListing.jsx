@@ -16,7 +16,6 @@ export const ProductListing = () => {
     return (
         <>
             <div className="product-listing-page">
-
                 <SideBar />
                 <div className="list-of-products">
                     {loader && <Loader />}

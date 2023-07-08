@@ -1,48 +1,58 @@
-.signUp-card{
+.signup-page {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.signUp-card {
     display: flex;
     flex-direction: column;
     border: 1px solid black;
-    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5);
-    height: 100%;
-    max-width: 400px;
-    margin: auto;
-    padding: 2rem;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.5);
+    /* height: 100%; */
+    width: 100%;
+    margin: 1rem;
+    padding: 1.2rem;
 }
 
-.userName{
+.userName {
     display: flex;
+    flex-direction: column;
     justify-content: space-around;
 
 }
-.first-name{
-    display: flex;
-    flex-direction: column;
-    text-align: left;
-}
-.last-name{
-    display: flex;
-    flex-direction:column;
-    text-align: left;
-}
-.userEmail{
+
+.first-name {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
-.userPassword{
+.last-name {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
 
-.signUp-card input{
+.userEmail {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.userPassword {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.signUp-card input {
     padding: 0.5rem;
     margin: 0.5rem;
     margin-left: 0.05rem;
 }
 
-.signUp-card button{
+.signUp-card button {
     padding: 0.5rem;
     width: 100%;
     margin: auto;
@@ -52,4 +62,61 @@
     border-radius: 8px;
     margin-top: 0.5rem;
     margin-bottom: 1rem;
+}
+@media only screen and (min-width: 768px) {
+    .signUp-card{
+        /* display: flex;
+        flex-direction: column;
+        border: 1px solid black;
+        box-shadow: 0 4px 8px 0 rgba(0,0,0,0.5); */
+        /* height: 100%; */
+        width: 30%;
+        /* margin: auto; */
+        padding: 2rem;
+    }
+
+    /* .userName{
+        display: flex;
+        justify-content: space-around;
+
+    }
+    .first-name{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+    .last-name{
+        display: flex;
+        flex-direction:column;
+        text-align: left;
+    }
+    .userEmail{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .userPassword{
+        display: flex;
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .signUp-card input{
+        padding: 0.5rem;
+        margin: 0.5rem;
+        margin-left: 0.05rem;
+    }
+
+    .signUp-card button{
+        padding: 0.5rem;
+        width: 100%;
+        margin: auto;
+        background-color: #007bb5;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        margin-top: 0.5rem;
+        margin-bottom: 1rem;
+    } */
 }

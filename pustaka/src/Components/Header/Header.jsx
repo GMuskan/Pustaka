@@ -34,18 +34,19 @@ export const Header = () => {
                 <div className="actionItems">
                     <button className="btn-wishlist" onClick={() => navigate("/wishlist")}>
                         <div className="btn-icon">
-                            <i className="fa fa-heart" aria-hidden="true"></i>
+                            <i className="fa fa-heart" aria-hidden="true" onClick={() => navigate("/wishlist")}></i>
                         </div>
-                        {authState?.token && wishlist && <div className="btn-count">
-                            <p>{wishlist?.length}</p>
-                        </div>}
+                        {authState?.token && wishlist?.length > 0 &&
+                            <div className="btn-count">
+                                <p>{wishlist?.length}</p>
+                            </div>
+                        }
                     </button>
-
                     <button className="btn-cart" onClick={() => navigate("/cart")}>
                         <div className="btn-icon">
                             <i className="fa fa-shopping-cart" aria-hidden="true"></i>
                         </div>
-                        {authState?.token && cart && <div className="btn-count">
+                        {authState?.token && cart?.length > 0 && <div className="btn-count">
                             <p>{cart?.length}</p>
                         </div>}
                     </button>

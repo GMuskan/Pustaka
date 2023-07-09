@@ -59,7 +59,7 @@ export const Login = () => {
                     <span><input type="checkbox" onClick={() => handleShowHidePassword()} />{passwordType === "text" ? "Hide Password" : "Show Password"}</span>
                 </div>
                 <button onClick={() => handleLoginClick(loginForm)}>Login</button>
-                <NavLink style={getActiveStyle} to="/signup">Create New Account</NavLink>
+                <NavLink style={getActiveStyle} to="/signup">Don't have an account? <span className="signup-link">Signup</span></NavLink>
             </div>
         </div>
     )

@@ -104,7 +104,7 @@ export const DataProvider = ({ children }) => {
 
     const sortedProducts = state?.sortByPrice !== null ? filterByPriceRangeProducts?.sort((a, b) => state?.sortByPrice === "highToLow" ? b?.price - a?.price : a?.price - b?.price) : filterByPriceRangeProducts
 
-    const searchedProducts = state?.search !== "" ? sortedProducts?.filter((product) => product?.name?.toLowerCase().includes(state?.search)) : sortedProducts
+    const searchedProducts = state?.search !== "" ? sortedProducts?.filter((product) => product?.name?.toLowerCase().includes(state?.search?.toLowerCase())) : sortedProducts
 
     const clearFilterHandler = () => {
         dispatch({ type: "CLEAR_FILTERS" })

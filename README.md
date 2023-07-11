@@ -31,6 +31,8 @@ Online Book Store
     . Wishlist Management
 
     . Cart Management
+    
+    . Pagination
 
     . Search
 

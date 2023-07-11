@@ -21,10 +21,12 @@
     grid-row-gap: 16px;
 }
 
-/* .no-products{
-    margin: auto;
+.no-products{
+    display: flex;
+    justify-content: center;
+    align-items: center;    
 }
- */
+
 
 @media only screen and (min-width: 400px){
     .product-listing-page {

@@ -12,7 +12,7 @@ export const SideBar = () => {
     ]
 
     const [isSideBarExpanded, setIsSideBarExpanded] = useState(false)
-    console.log(isSideBarExpanded)
+
     return (
         <div className="sidebar">
             <div className="hamburger" onClick={() => {

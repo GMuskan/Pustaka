@@ -60,9 +60,11 @@ export const Header = () => {
                     </div>
                 }
                 <div className="logout-btn">
-                    <button className="btn-user" onClick={logoutClickHandler}>
-                        <i className="fa fa-sign-out" aria-hidden="true"></i>
-                    </button>
+                    {authState?.token ? <button className="btn-user" onClick={logoutClickHandler}>
+                        <span>Logout</span> <i className="fa fa-sign-out" aria-hidden="true"></i>
+                    </button> : <button className="btn-user" onClick={() => navigate("/login")}>
+                        <span>Login</span> <i className="fa fa-sign-in" aria-hidden="true"></i>
+                    </button>}
                 </div>
             </nav>
         </>

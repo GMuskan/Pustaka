@@ -42,6 +42,7 @@ export const ProductCard = ({ product }) => {
                         <i className="fa fa-heart" aria-hidden="true" style={{ color: isInwishlist ? "red" : "grey" }}></i>
                     </button>
                 </div>
+                
                 <div className="productDescription">
                     <div className="product-desc-details">
                         <p className="productName">{product?.name}</p>
@@ -64,6 +65,9 @@ export const ProductCard = ({ product }) => {
                     <i className="fa fa-shopping-cart" aria-hidden="true"></i>{" "}
                     {!isInCart ? "Add To Cart" : "Go To Cart"}
                 </button>
+                {product?.isBestSeller && <div className="product-tag">
+                    Best Seller
+                </div>}
             </div>
         </>
     )

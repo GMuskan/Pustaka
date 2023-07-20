@@ -124,6 +124,17 @@
 .productCard img:hover {
     cursor: pointer;
 }
+
+.product-tag{
+    background-color: #20aa20;
+    height: fit-content;
+    color: white;
+    width: 8rem;
+    position: relative;
+    top: -15rem;
+    left: 2rem;
+    padding: 0.3rem;
+}
 @media only screen and (min-width: 768px){
     .productCard{
         height: 435px;
@@ -293,6 +304,12 @@
         top: 0px;
     }
 } */
+
+.product-tag {
+    top: -28.5rem;
+    left: 1rem;
+    padding: 0.3rem;
+}
 @media only screen and (min-width: 1024px) {
     .productCard {
             height: 435px;
